@@ -1,0 +1,537 @@
+@prefix : <http://www.semanticweb.org/malikluti/ontologies/swade#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix obda: <https://w3id.org/obda/vocabulary#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix saref: <https://saref.etsi.org/core/> .
+@prefix swade: <http://www.semanticweb.org/malikluti/ontologies/swade#> .
+@prefix s4city: <https://saref.etsi.org/saref4city/> .
+@prefix s4watr: <https://saref.etsi.org/saref4watr/> .
+@base <http://www.semanticweb.org/malikluti/ontologies/swade> .
+
+<http://www.semanticweb.org/malikluti/ontologies/swade> rdf:type owl:Ontology ;
+                                                         owl:imports <https://saref.etsi.org/saref4city/v1.1.2/> ,
+                                                                     <https://saref.etsi.org/saref4watr/v1.1.1/> .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasJointMaterial
+swade:hasJointMaterial rdf:type owl:ObjectProperty ;
+                       rdfs:domain s4watr:Pipe ;
+                       rdfs:range swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasLining
+swade:hasLining rdf:type owl:ObjectProperty ;
+                rdfs:domain s4watr:Pipe ;
+                rdfs:range swade:Lining .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasMaterial
+swade:hasMaterial rdf:type owl:ObjectProperty ;
+                  rdfs:domain s4watr:Pipe ;
+                  rdfs:range swade:Material .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasPhysicalComponenet
+swade:hasPhysicalComponenet rdf:type owl:ObjectProperty ;
+                            rdfs:domain swade:WaterNetwork ;
+                            rdfs:range swade:PhysicalComponent .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#servesZone
+swade:servesZone rdf:type owl:ObjectProperty ;
+                 rdfs:domain swade:PhysicalComponent ;
+                 rdfs:range swade:ServiceZone .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#code
+swade:code rdf:type owl:DatatypeProperty ;
+           rdfs:domain swade:Material ;
+           rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasCathodic
+swade:hasCathodic rdf:type owl:DatatypeProperty ;
+                  rdfs:domain s4watr:Pipe ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasDiameter
+swade:hasDiameter rdf:type owl:DatatypeProperty ;
+                  rdfs:domain s4watr:Pipe ;
+                  rdfs:range xsd:double .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasInstallationDate
+swade:hasInstallationDate rdf:type owl:DatatypeProperty ;
+                          rdfs:domain s4watr:Pipe ;
+                          rdfs:range xsd:date .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasJointType
+swade:hasJointType rdf:type owl:DatatypeProperty ;
+                   rdfs:domain s4watr:Pipe ;
+                   rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasLength
+swade:hasLength rdf:type owl:DatatypeProperty ;
+                rdfs:domain s4watr:Pipe ;
+                rdfs:range xsd:double .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#id
+swade:id rdf:type owl:DatatypeProperty ;
+         rdfs:domain swade:ServiceZone ;
+         rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#useType
+swade:useType rdf:type owl:DatatypeProperty ;
+              rdfs:domain s4watr:Pipe ;
+              rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChloramineSensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChloramineSensor> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChlorineSensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChlorineSensor> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#DissolvedOxygenSensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#DissolvedOxygenSensor> rdf:type owl:Class ;
+                                                                                                    rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#OxidationReductionPotentialSensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#OxidationReductionPotentialSensor> rdf:type owl:Class ;
+                                                                                                                rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#PhSensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#PhSensor> rdf:type owl:Class ;
+                                                                                       rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#TurbiditySensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#TurbiditySensor> rdf:type owl:Class ;
+                                                                                              rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> rdf:type owl:Class ;
+                                                                                           rdfs:subClassOf saref:Sensor ;
+                                                                                           rdfs:comment "This class will have all the water quality sensors." .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#DistributionPipe
+swade:DistributionPipe rdf:type owl:Class ;
+                       rdfs:subClassOf s4watr:Pipe .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#JointType
+swade:JointType rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#LargePipeLAWDP
+swade:LargePipeLAWDP rdf:type owl:Class ;
+                     rdfs:subClassOf s4watr:Pipe .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Lining
+swade:Lining rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Material
+swade:Material rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#MediumPipeLAWDP
+swade:MediumPipeLAWDP rdf:type owl:Class ;
+                      rdfs:subClassOf s4watr:Pipe .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PhysicalComponent
+swade:PhysicalComponent rdf:type owl:Class ;
+                        owl:equivalentClass s4watr:WaterAsset ;
+                        rdfs:subClassOf <https://saref.etsi.org/saref4syst/System> .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#ServiceZone
+swade:ServiceZone rdf:type owl:Class ;
+                  rdfs:subClassOf <http://www.opengis.net/ont/geosparql#SpatialObject> ,
+                                  <https://saref.etsi.org/saref4syst/System> .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#SmallPipeLAWDP
+swade:SmallPipeLAWDP rdf:type owl:Class ;
+                     rdfs:subClassOf s4watr:Pipe .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#TransmissionTrunkPipe
+swade:TransmissionTrunkPipe rdf:type owl:Class ;
+                            rdfs:subClassOf s4watr:Pipe .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#WaterNetwork
+swade:WaterNetwork rdf:type owl:Class ;
+                   rdfs:subClassOf <https://saref.etsi.org/saref4syst/System> .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#WaterSourcePipe
+swade:WaterSourcePipe rdf:type owl:Class ;
+                      rdfs:subClassOf s4watr:Pipe .
+
+
+###  https://saref.etsi.org/saref4watr/Pipe
+s4watr:Pipe rdfs:subClassOf swade:PhysicalComponent ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty swade:hasCathodic ;
+                              owl:someValuesFrom xsd:string
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty swade:hasDiameter ;
+                              owl:someValuesFrom xsd:float
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty swade:useType ;
+                              owl:someValuesFrom xsd:string
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty s4city:hasCreationDate ;
+                              owl:someValuesFrom xsd:dateTime
+                            ] .
+
+
+###  https://saref.etsi.org/saref4watr/WaterAsset
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#AC
+swade:AC rdf:type owl:NamedIndividual ,
+                  swade:Material ;
+         swade:code "AC"^^xsd:string ;
+         rdfs:label "AsbestosCement" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#ASPH
+swade:ASPH rdf:type owl:NamedIndividual ,
+                    swade:Lining ;
+           rdfs:label "Asphalt" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Arc-WeldedJoint
+swade:Arc-WeldedJoint rdf:type owl:NamedIndividual ,
+                               swade:JointType ;
+                      owl:sameAs swade:Arc-welded .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Arc-welded
+swade:Arc-welded rdf:type owl:NamedIndividual ,
+                          swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Arc_Welded
+swade:Arc_Welded rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#BRS
+swade:BRS rdf:type owl:NamedIndividual ,
+                   swade:Material ;
+          swade:code "BRS"^^xsd:string ;
+          rdfs:label "Brass" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Brittle
+swade:Brittle rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#ButtFusion
+swade:ButtFusion rdf:type owl:NamedIndividual ,
+                          swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#CI
+swade:CI rdf:type owl:NamedIndividual ,
+                  swade:Material ;
+         swade:code "CI"^^xsd:string ;
+         rdfs:label "CastIron" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#CJ
+swade:CJ rdf:type owl:NamedIndividual ,
+                  swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#CL
+swade:CL rdf:type owl:NamedIndividual ,
+                  swade:Lining ;
+         rdfs:label "Clay" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#CM
+swade:CM rdf:type owl:NamedIndividual ,
+                  swade:Material ;
+         swade:code "CM"^^xsd:string ;
+         rdfs:label "CorrugatedMetal" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#CONC
+swade:CONC rdf:type owl:NamedIndividual ,
+                    swade:Material ;
+           swade:code "CONC"^^xsd:string ;
+           rdfs:label "Concrete" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#COP
+swade:COP rdf:type owl:NamedIndividual ,
+                   swade:Material ;
+          swade:code "COP"^^xsd:string ;
+          rdfs:label "Copper" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Caulked
+swade:Caulked rdf:type owl:NamedIndividual ,
+                       swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Coupling
+swade:Coupling rdf:type owl:NamedIndividual ,
+                        swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#DI
+swade:DI rdf:type owl:NamedIndividual ,
+                  swade:Material ;
+         swade:code "DI"^^xsd:string ;
+         rdfs:label "DuctileIron" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#ENAM
+swade:ENAM rdf:type owl:NamedIndividual ,
+                    swade:Lining ;
+           rdfs:label "Enamel" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#EQ_joint
+swade:EQ_joint rdf:type owl:NamedIndividual ,
+                        swade:JointType ;
+               owl:sameAs swade:EarthQuake .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuake
+swade:EarthQuake rdf:type owl:NamedIndividual ,
+                          swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Electrofusion
+swade:Electrofusion rdf:type owl:NamedIndividual ,
+                             swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#FUCED
+swade:FUCED rdf:type owl:NamedIndividual ,
+                     swade:JointType ;
+            owl:sameAs swade:Fused .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Flange
+swade:Flange rdf:type owl:NamedIndividual ,
+                      swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Flexible
+swade:Flexible rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Fused
+swade:Fused rdf:type owl:NamedIndividual ,
+                     swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#GALV
+swade:GALV rdf:type owl:NamedIndividual ,
+                    swade:Lining ;
+           rdfs:label "Galvanized" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Gas-Welded
+swade:Gas-Welded rdf:type owl:NamedIndividual ,
+                          swade:JointType ;
+                 owl:sameAs swade:Gas_welded .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Gas_welded
+swade:Gas_welded rdf:type owl:NamedIndividual ,
+                          swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#GasketSteelRing
+swade:GasketSteelRing rdf:type owl:NamedIndividual ,
+                               swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Gaulked
+swade:Gaulked rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#HDPE
+swade:HDPE rdf:type owl:NamedIndividual ,
+                    swade:Material ;
+           swade:code "HDPE"^^xsd:string ;
+           rdfs:label "HighDensityPolyethylene" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#MechanicalCoupling
+swade:MechanicalCoupling rdf:type owl:NamedIndividual ,
+                                  swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#MechanicalJoint
+swade:MechanicalJoint rdf:type owl:NamedIndividual ,
+                               swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PP
+swade:PP rdf:type owl:NamedIndividual ,
+                  swade:Material ;
+         swade:code "PP"^^xsd:string ;
+         rdfs:label "Polyolefin" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PVC
+swade:PVC rdf:type owl:NamedIndividual ,
+                   swade:Material ;
+          swade:code "PVC"^^xsd:string ;
+          rdfs:label "PolyvinylChloride" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#RG
+swade:RG rdf:type owl:NamedIndividual ;
+         owl:sameAs swade:Rubber_Gasket ;
+         rdfs:label "Rubber_Gasket" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Rigid
+swade:Rigid rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Robust
+swade:Robust rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Rubber_Gasket
+swade:Rubber_Gasket rdf:type owl:NamedIndividual ,
+                             swade:JointType ;
+                    rdfs:label "Rubber_Gasket" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#SCREW
+swade:SCREW rdf:type owl:NamedIndividual ,
+                     swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#SOLDER
+swade:SOLDER rdf:type owl:NamedIndividual ,
+                      swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#STL
+swade:STL rdf:type owl:NamedIndividual ,
+                   swade:Material ;
+          swade:code "STL"^^xsd:string ;
+          rdfs:label "Steel" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#SolventWeld
+swade:SolventWeld rdf:type owl:NamedIndividual ,
+                           swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Steel
+swade:Steel rdf:type owl:NamedIndividual ,
+                     swade:Material ;
+            swade:code "STL" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#VICT
+swade:VICT rdf:type owl:NamedIndividual ,
+                    swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#WJ
+swade:WJ rdf:type owl:NamedIndividual ,
+                  swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#B&S
+<http://www.semanticweb.org/malikluti/ontologies/swade#B&S> rdf:type owl:NamedIndividual ,
+                                                                     swade:JointType ;
+                                                            owl:sameAs <http://www.semanticweb.org/malikluti/ontologies/swade#Bell&Spigot> .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Bell&Spigot
+<http://www.semanticweb.org/malikluti/ontologies/swade#Bell&Spigot> rdf:type owl:NamedIndividual ,
+                                                                             swade:JointType .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Cast%20Iron
+<http://www.semanticweb.org/malikluti/ontologies/swade#Cast%20Iron> rdf:type owl:NamedIndividual ,
+                                                                             swade:Material ;
+                                                                    swade:code "CI" .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#GasketBell&Spigot
+<http://www.semanticweb.org/malikluti/ontologies/swade#GasketBell&Spigot> rdf:type owl:NamedIndividual ,
+                                                                                   swade:JointType .
+
+
+###  https://saref.etsi.org/saref4watr/COP
+s4watr:COP rdf:type owl:NamedIndividual ;
+           swade:code "COP"^^xsd:string ;
+           rdfs:label "Copper" .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChloramineSensor>
+                <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChlorineSensor>
+                <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#DissolvedOxygenSensor>
+                <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#OxidationReductionPotentialSensor>
+                <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#PhSensor>
+                <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#TurbiditySensor>
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

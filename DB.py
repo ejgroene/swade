@@ -33,14 +33,14 @@ def data_retrieval(db, topic):
 
     print(records)
     fieldsLookUp = {
-        # "pH": {"name": "HydrogenIonConcentration", "unit": ""},
+        "pH": {"name": "HydrogenIonConcentration", "unit": ""},
         "turb": {"name": "Turbidity", "unit": "NTU"},
-        # "orp": "Oxidisability",
-        # "chlorine":
-        # "chloramine"
-        #"do":
-        #"ec":
-        #"t": "Temperature"
+        "orp": {"name": "Oxidisability", "unit": "mV"},
+        "chlorine": {"name": "chlorine", "unit": "mg-L"},
+        #"chloramine":{"name": "", "unit": "mg-L"},
+        #"do":{"name": "Dissolved oxygen", "unit": ""},
+        #"ec": {"name": "", "unit": "μS/cm"}
+        "t": {"name": "Temperature", "unit": "Fahrenheit"}
 
 
     }
@@ -70,6 +70,7 @@ def data_retrieval(db, topic):
                         PREFIX swade: <http://www.swade-saref.org/ontology#>
                         PREFIX wq: <http://water-quality.org/>
                         PREFIX unit: <http://www.ontology-of-units-of-measure.org/resource/om-2/>
+                        PREFIX saref4water: <https://saref.etsi.org/saref4watr/>
 
 
                         insert data 
@@ -86,7 +87,7 @@ def data_retrieval(db, topic):
             queryString += """wq:Measurement{}{} rdf:type swade:Measurement .
                          wq:Measurement{}{} saref:hasTimestamp \"{}\" .
                          wq:Measurement{}{} saref:hasValue \"{}\" .
-                         wq:Measurement{}{} saref:relateToProperty saref:{} .
+                         wq:Measurement{}{} saref:relateToProperty saref4water:{} .
                          wq:Measurement{}{} saref:isMeasuredIn unit:{} .
                          """.format(
                          id, field, id, field, timeStamp, id, field, field_value, id, field, field_ref, id, field, unit)
@@ -124,3 +125,8 @@ if __name__ == "__main__":
 #              wq:Measurement"""+ str(id) + """turb saref:hasTimestamp \""""+ str(timeStamp) + """\" .
 #              wq:Measurement"""+ str(id) + """turb saref:hasValue \""""+ str(turb) + """\" .
 #              wq:Measurement"""+ str(id) + """turb saref:relateToProperty saref:Turbidity .
+
+#SELECT * WHERE
+#{ ?indv
+#a
+#saref:Measure.}

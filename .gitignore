@@ -1,3 +1,5 @@
 venv*
 .idea/*
 *.py[cod]
+swade_venv/*
+.vscode/

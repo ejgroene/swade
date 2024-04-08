@@ -3,28 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\gg363d\\source\\repos\\swade\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gg363d\\Source\\Repos\\swade\\attic\\getViector.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gg363d\\source\\repos\\swade\\tests\\matcher.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:tests\\matcher.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gg363d\\source\\repos\\swade\\attic\\getViector.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:attic\\getViector.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gg363d\\Source\\Repos\\swade\\attic\\parser.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gg363d\\source\\repos\\swade\\attic\\parser.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:attic\\parser.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gg363d\\Source\\Repos\\swade\\attic\\parser_jsonLD.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:attic\\parser_jsonLD.py||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gg363d\\Source\\Repos\\swade\\attic\\bipartite_matcher.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:attic\\bipartite_matcher.py||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gg363d\\Source\\Repos\\swade\\data\\saref4watr.ttl||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\saref4watr.ttl||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gg363d\\Source\\Repos\\swade\\attic\\propmpt_playground.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:attic\\propmpt_playground.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gg363d\\source\\repos\\swade\\tests\\rdflibassumptions.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:tests\\rdflibassumptions.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -41,79 +33,58 @@
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "saref4watr.ttl",
-              "DocumentMoniker": "C:\\Users\\gg363d\\source\\repos\\swade\\data\\saref4watr.ttl",
-              "RelativeDocumentMoniker": "data\\saref4watr.ttl",
-              "ToolTip": "C:\\Users\\gg363d\\source\\repos\\swade\\data\\saref4watr.ttl",
-              "RelativeToolTip": "data\\saref4watr.ttl",
-              "ViewState": "AQIAAIoDAAAAAAAAAAAkwJ4DAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-04-03T16:52:49.988Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "parser_jsonLD.py",
-              "DocumentMoniker": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\parser_jsonLD.py",
-              "RelativeDocumentMoniker": "attic\\parser_jsonLD.py",
-              "ToolTip": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\parser_jsonLD.py",
-              "RelativeToolTip": "attic\\parser_jsonLD.py",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-04-02T14:13:02.954Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "parser.py",
-              "DocumentMoniker": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\parser.py",
-              "RelativeDocumentMoniker": "attic\\parser.py",
-              "ToolTip": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\parser.py",
-              "RelativeToolTip": "attic\\parser.py",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-03-30T01:51:17.559Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "getViector.py",
               "DocumentMoniker": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\getViector.py",
               "RelativeDocumentMoniker": "attic\\getViector.py",
               "ToolTip": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\getViector.py",
               "RelativeToolTip": "attic\\getViector.py",
-              "ViewState": "AQIAAJYAAAAAAAAAAAAAAK0AAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-03-27T21:42:43.459Z",
+              "WhenOpened": "2024-04-07T18:45:02.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "parser.py",
+              "DocumentMoniker": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\parser.py",
+              "RelativeDocumentMoniker": "attic\\parser.py",
+              "ToolTip": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\parser.py",
+              "RelativeToolTip": "attic\\parser.py",
+              "ViewState": "AQIAACoAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-04-06T03:11:32.428Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "matcher.py",
+              "DocumentMoniker": "C:\\Users\\gg363d\\source\\repos\\swade\\tests\\matcher.py",
+              "RelativeDocumentMoniker": "tests\\matcher.py",
+              "ToolTip": "C:\\Users\\gg363d\\source\\repos\\swade\\tests\\matcher.py",
+              "RelativeToolTip": "tests\\matcher.py",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-04-06T03:10:18.447Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "bipartite_matcher.py",
-              "DocumentMoniker": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\bipartite_matcher.py",
-              "RelativeDocumentMoniker": "attic\\bipartite_matcher.py",
-              "ToolTip": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\bipartite_matcher.py",
-              "RelativeToolTip": "attic\\bipartite_matcher.py",
-              "ViewState": "AQIAAEIAAAAAAAAAAAAAAFMAAABDAAAA",
+              "Title": "rdflibassumptions.py",
+              "DocumentMoniker": "C:\\Users\\gg363d\\source\\repos\\swade\\tests\\rdflibassumptions.py",
+              "RelativeDocumentMoniker": "tests\\rdflibassumptions.py",
+              "ToolTip": "C:\\Users\\gg363d\\source\\repos\\swade\\tests\\rdflibassumptions.py",
+              "RelativeToolTip": "tests\\rdflibassumptions.py",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAACEAAAAGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-03-27T15:54:25.581Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "propmpt_playground.py",
-              "DocumentMoniker": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\propmpt_playground.py",
-              "RelativeDocumentMoniker": "attic\\propmpt_playground.py",
-              "ToolTip": "C:\\Users\\gg363d\\source\\repos\\swade\\attic\\propmpt_playground.py",
-              "RelativeToolTip": "attic\\propmpt_playground.py",
-              "ViewState": "AQIAAJ8AAAAAAAAAAAAAABQAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-03-30T18:51:58.863Z"
+              "WhenOpened": "2024-04-05T18:29:26.962Z"
             }
           ]
         }

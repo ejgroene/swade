@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\tests"
+    "\\attic",
+    "\\data",
+    "\\swade_venv"
   ],
+  "SelectedNode": "\\gitter.py",
   "PreviewInSolutionExplorer": false
 }

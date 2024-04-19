@@ -1,4 +1,4 @@
 {
-  "Interpreter": "Workspace|Workspace|swade_venv",
-  "TestFramework": "Pytest"
+  "TestFramework": "Pytest",
+  "Interpreter": "Workspace|Workspace|swade_venv"
 }

@@ -27,34 +27,90 @@ xsd:date rdf:type rdfs:Datatype .
 #    Object Properties
 #################################################################
 
+###  http://www.semanticweb.org/malikluti/ontologies/swade#AssociatedPipe
+swade:AssociatedPipe rdf:type owl:ObjectProperty ;
+                     rdfs:domain swade:AnalysisResultsPipe ;
+                     rdfs:range s4watr:Pipe ;
+                     rdfs:comment "AssociatedPipe"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasGeoSpatialComponent
+swade:hasGeoSpatialComponent rdf:type owl:ObjectProperty ;
+                             rdfs:domain swade:HazardParameter ;
+                             rdfs:range <http://www.opengis.net/ont/geosparql#SpatialObject> ;
+                             rdfs:label "hasGeoSpatialComponent"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasHazard
+swade:hasHazard rdf:type owl:ObjectProperty ;
+                rdfs:domain swade:RiskScenario ;
+                rdfs:range swade:HazardEvent ;
+                rdfs:label "hasHazard"@en .
+
+
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#hasJointMaterial
 swade:hasJointMaterial rdf:type owl:ObjectProperty ;
                        rdfs:domain s4watr:Pipe ;
-                       rdfs:range swade:JointType .
+                       rdfs:range swade:JointType ;
+                       rdfs:label "hasJointMaterial"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#hasLining
 swade:hasLining rdf:type owl:ObjectProperty ;
                 rdfs:domain s4watr:Pipe ;
-                rdfs:range swade:Lining .
+                rdfs:range swade:Lining ;
+                rdfs:label "hasLining"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#hasMaterial
 swade:hasMaterial rdf:type owl:ObjectProperty ;
                   rdfs:domain s4watr:Pipe ;
-                  rdfs:range swade:Material .
+                  rdfs:range swade:Material ;
+                  rdfs:label "hasMaterial"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasParameter
+swade:hasParameter rdf:type owl:ObjectProperty ;
+                   rdfs:domain swade:EarthQuake ,
+                               swade:HazardEvent ;
+                   rdfs:range swade:EarthQuakeParameter ,
+                              swade:HazardParameter ;
+                   rdfs:label "hasParameter"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#hasPhysicalComponenet
 swade:hasPhysicalComponenet rdf:type owl:ObjectProperty ;
                             rdfs:domain swade:WaterNetwork ;
-                            rdfs:range swade:PhysicalComponent .
+                            rdfs:range swade:PhysicalComponent ;
+                            rdfs:label "hasPhysicalComponenet"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasResults
+swade:hasResults rdf:type owl:ObjectProperty ;
+                 rdfs:domain swade:RiskScenario ;
+                 rdfs:range swade:AnalysisResults ;
+                 rdfs:label "hasResults"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasResultsPipe
+swade:hasResultsPipe rdf:type owl:ObjectProperty ;
+                     rdfs:domain swade:AnalysisResults ;
+                     rdfs:range swade:AnalysisResultsPipe ;
+                     rdfs:label "hasResultsPipe"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasWaterNetwork
+swade:hasWaterNetwork rdf:type owl:ObjectProperty ;
+                      rdfs:domain swade:RiskScenario ;
+                      rdfs:range swade:WaterNetwork ;
+                      rdfs:label "hasWaterNetwork"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#servesZone
 swade:servesZone rdf:type owl:ObjectProperty ;
                  rdfs:domain swade:PhysicalComponent ;
-                 rdfs:range swade:ServiceZone .
+                 rdfs:range swade:ServiceZone ;
+                 rdfs:label "servesZone"@en .
 
 
 #################################################################
@@ -64,49 +120,170 @@ swade:servesZone rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#code
 swade:code rdf:type owl:DatatypeProperty ;
            rdfs:domain swade:Material ;
-           rdfs:range xsd:string .
+           rdfs:range xsd:string ;
+           rdfs:label "code"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expRepairCostDistPipes
+swade:expRepairCostDistPipes rdf:type owl:DatatypeProperty ;
+                             rdfs:domain swade:AnalysisResults ;
+                             rdfs:range xsd:int ;
+                             rdfs:label "expRepairCostDistrPipes"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expRepairCostTranPipes
+swade:expRepairCostTranPipes rdf:type owl:DatatypeProperty ;
+                             rdfs:domain swade:AnalysisResults ;
+                             rdfs:range xsd:int ;
+                             rdfs:label "expRepairCostTransPipes"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expRepairCostsNetwork
+swade:expRepairCostsNetwork rdf:type owl:DatatypeProperty ;
+                            rdfs:domain swade:AnalysisResults ;
+                            rdfs:range xsd:int ;
+                            rdfs:label "expRepairCostsNetwork"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expRepairNumDistrPipes
+swade:expRepairNumDistrPipes rdf:type owl:DatatypeProperty ;
+                             rdfs:domain swade:AnalysisResults ;
+                             rdfs:range xsd:int ;
+                             rdfs:label "expRepairNumDistrPipes"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expRepairNumNetwork
+swade:expRepairNumNetwork rdf:type owl:DatatypeProperty ;
+                          rdfs:domain swade:AnalysisResults ;
+                          rdfs:range xsd:int ;
+                          rdfs:label "expRepairNumNetwork"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expRepairNumTransPipes
+swade:expRepairNumTransPipes rdf:type owl:DatatypeProperty ;
+                             rdfs:domain swade:AnalysisResults ;
+                             rdfs:range xsd:int ;
+                             rdfs:label "expRepairNumTransPipes"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expRepairTimeDistrPipes
+swade:expRepairTimeDistrPipes rdf:type owl:DatatypeProperty ;
+                              rdfs:domain swade:AnalysisResults ;
+                              rdfs:range xsd:int ;
+                              rdfs:label "expRepairTimeDistrPipes"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expRepairTimeNetwork
+swade:expRepairTimeNetwork rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf owl:topDataProperty ;
+                           rdfs:domain swade:AnalysisResults ;
+                           rdfs:range xsd:int ;
+                           rdfs:label "expRepairTimeNetwork"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expRepairTimeTransPipes
+swade:expRepairTimeTransPipes rdf:type owl:DatatypeProperty ;
+                              rdfs:domain swade:AnalysisResults ;
+                              rdfs:range xsd:int ;
+                              rdfs:label "expRepairTimeTransPipes"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsAllEQHazards
+swade:expectedRepairsAllEQHazards rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain swade:AnalysisResultsPipe ;
+                                  rdfs:range xsd:int ;
+                                  rdfs:comment "expectedRepairsAllEQHazards"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsGroundFailure
+swade:expectedRepairsGroundFailure rdf:type owl:DatatypeProperty ;
+                                   rdfs:domain swade:AnalysisResultsPipe ;
+                                   rdfs:range xsd:int ;
+                                   rdfs:comment "expectedRepairsGroundFailure"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsGroundShaking
+swade:expectedRepairsGroundShaking rdf:type owl:DatatypeProperty ;
+                                   rdfs:domain swade:AnalysisResultsPipe ;
+                                   rdfs:range xsd:int ;
+                                   rdfs:label "expectedRepairsGroundShaking"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsLandslide
+swade:expectedRepairsLandslide rdf:type owl:DatatypeProperty ;
+                               rdfs:domain swade:AnalysisResultsPipe ;
+                               rdfs:range xsd:int ;
+                               rdfs:label "expectedRepairsLandslide"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsLiquefaction
+swade:expectedRepairsLiquefaction rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain swade:AnalysisResultsPipe ;
+                                  rdfs:range xsd:int ;
+                                  rdfs:label "expectedRepairsLiquefaction"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsSurfaceDisplacement
+swade:expectedRepairsSurfaceDisplacement rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain swade:AnalysisResultsPipe ;
+                                         rdfs:range xsd:int ;
+                                         rdfs:label "expectedRepairsSurfaceDisplacement"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#hasCathodic
 swade:hasCathodic rdf:type owl:DatatypeProperty ;
                   rdfs:domain s4watr:Pipe ;
-                  rdfs:range xsd:string .
+                  rdfs:range xsd:string ;
+                  rdfs:label "hasCathodic"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#hasDiameter
 swade:hasDiameter rdf:type owl:DatatypeProperty ;
                   rdfs:domain s4watr:Pipe ;
-                  rdfs:range xsd:double .
+                  rdfs:range xsd:double ;
+                  rdfs:label "hasDiameter"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#hasInstallationDate
 swade:hasInstallationDate rdf:type owl:DatatypeProperty ;
                           rdfs:domain s4watr:Pipe ;
-                          rdfs:range xsd:date .
+                          rdfs:range xsd:date ;
+                          rdfs:label "hasInstallationDate"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#hasJointType
 swade:hasJointType rdf:type owl:DatatypeProperty ;
                    rdfs:domain s4watr:Pipe ;
-                   rdfs:range xsd:string .
+                   rdfs:range xsd:string ;
+                   rdfs:label "hasJointType"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#hasLength
 swade:hasLength rdf:type owl:DatatypeProperty ;
                 rdfs:domain s4watr:Pipe ;
-                rdfs:range xsd:double .
+                rdfs:range xsd:double ;
+                rdfs:label "hasLength"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#hasValue
+swade:hasValue rdf:type owl:DatatypeProperty ;
+               rdfs:domain swade:HazardParameter ;
+               rdfs:range xsd:float ;
+               rdfs:label "hasValue"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#id
 swade:id rdf:type owl:DatatypeProperty ;
          rdfs:domain swade:ServiceZone ;
-         rdfs:range xsd:integer .
+         rdfs:range xsd:integer ;
+         rdfs:label "id"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#useType
 swade:useType rdf:type owl:DatatypeProperty ;
               rdfs:domain s4watr:Pipe ;
-              rdfs:range xsd:string .
+              rdfs:range xsd:string ;
+              rdfs:label "useType"@en .
 
 
 #################################################################
@@ -115,32 +292,38 @@ swade:useType rdf:type owl:DatatypeProperty ;
 
 ###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChloramineSensor
 <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChloramineSensor> rdf:type owl:Class ;
-                                                                                               rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                               rdfs:label "ChloramineSensor"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChlorineSensor
 <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChlorineSensor> rdf:type owl:Class ;
-                                                                                             rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                             rdfs:label "ChlorineSensor"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#DissolvedOxygenSensor
 <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#DissolvedOxygenSensor> rdf:type owl:Class ;
-                                                                                                    rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+                                                                                                    rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                                    rdfs:label "DissolvedOxygenSensor"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#OxidationReductionPotentialSensor
 <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#OxidationReductionPotentialSensor> rdf:type owl:Class ;
-                                                                                                                rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+                                                                                                                rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                                                rdfs:label "OxidationReductionPotentialSensor"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#PhSensor
 <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#PhSensor> rdf:type owl:Class ;
-                                                                                       rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+                                                                                       rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                       rdfs:label "PhSensor"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#TurbiditySensor
 <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#TurbiditySensor> rdf:type owl:Class ;
-                                                                                              rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> .
+                                                                                              rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                              rdfs:label "TurbiditySensor"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality
@@ -149,53 +332,152 @@ swade:useType rdf:type owl:DatatypeProperty ;
                                                                                            rdfs:comment "This class will have all the water quality sensors." .
 
 
+###  http://www.semanticweb.org/malikluti/ontologies/swade#AnalysisResults
+swade:AnalysisResults rdf:type owl:Class ;
+                      rdfs:label "AnalysisResults"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#AnalysisResultsPipe
+swade:AnalysisResultsPipe rdf:type owl:Class ;
+                          rdfs:label "AnalysisResultsPipe"@en .
+
+
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#DistributionPipe
 swade:DistributionPipe rdf:type owl:Class ;
-                       rdfs:subClassOf s4watr:Pipe .
+                       rdfs:subClassOf s4watr:Pipe ;
+                       rdfs:label "DistributionPipe"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuake
+swade:EarthQuake rdf:type owl:Class ;
+                 rdfs:subClassOf swade:HazardEvent .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuakeParameter
+swade:EarthQuakeParameter rdf:type owl:Class ;
+                          rdfs:subClassOf swade:HazardParameter ;
+                          rdfs:label "EarthQuakeParameter"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Flooding
+swade:Flooding rdf:type owl:Class ;
+               rdfs:subClassOf swade:HazardEvent .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#HazardEvent
+swade:HazardEvent rdf:type owl:Class ;
+                  rdfs:label "HazardEvent"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#HazardParameter
+swade:HazardParameter rdf:type owl:Class ;
+                      rdfs:label "HazardParameter"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Intensity
+swade:Intensity rdf:type owl:Class ;
+                rdfs:subClassOf swade:EarthQuakeParameter ;
+                rdfs:label "Intensity"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#JointType
-swade:JointType rdf:type owl:Class .
+swade:JointType rdf:type owl:Class ;
+                rdfs:label "JointType"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#LargePipeLAWDP
 swade:LargePipeLAWDP rdf:type owl:Class ;
-                     rdfs:subClassOf s4watr:Pipe .
+                     rdfs:subClassOf s4watr:Pipe ;
+                     rdfs:label "LargePipe"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#Lining
-swade:Lining rdf:type owl:Class .
+swade:Lining rdf:type owl:Class ;
+             rdfs:label "Lining"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#Material
-swade:Material rdf:type owl:Class .
+swade:Material rdf:type owl:Class ;
+               rdfs:label "Material"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#MediumPipeLAWDP
 swade:MediumPipeLAWDP rdf:type owl:Class ;
-                      rdfs:subClassOf s4watr:Pipe .
+                      rdfs:subClassOf s4watr:Pipe ;
+                      rdfs:label "MediumPipe"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PGA
+swade:PGA rdf:type owl:Class ;
+          rdfs:subClassOf swade:EarthQuakeParameter ;
+          rdfs:label "PGA"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PGV
+swade:PGV rdf:type owl:Class ;
+          rdfs:subClassOf swade:EarthQuakeParameter ;
+          rdfs:label "PGV"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PSA
+swade:PSA rdf:type owl:Class ;
+          rdfs:subClassOf swade:EarthQuakeParameter ;
+          rdfs:label "PSA"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PastEvent
+swade:PastEvent rdf:type owl:Class ;
+                rdfs:subClassOf swade:RealHazardEvent ;
+                rdfs:label "PastEvent"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#PhysicalComponent
 swade:PhysicalComponent rdf:type owl:Class ;
                         owl:equivalentClass s4watr:WaterAsset ;
-                        rdfs:subClassOf <https://saref.etsi.org/saref4syst/System> .
+                        rdfs:subClassOf <https://saref.etsi.org/saref4syst/System> ;
+                        rdfs:label "PhysicalComponent"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Real-TimeEvent
+swade:Real-TimeEvent rdf:type owl:Class ;
+                     rdfs:subClassOf swade:RealHazardEvent ;
+                     rdfs:label "Real-TimeEvent"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#RealHazardEvent
+swade:RealHazardEvent rdf:type owl:Class ;
+                      rdfs:subClassOf swade:HazardEvent ;
+                      rdfs:label "RealHazardEvent"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#RiskScenario
+swade:RiskScenario rdf:type owl:Class ;
+                   rdfs:label "RiskScenario"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#ServiceZone
 swade:ServiceZone rdf:type owl:Class ;
                   rdfs:subClassOf <http://www.opengis.net/ont/geosparql#SpatialObject> ,
-                                  <https://saref.etsi.org/saref4syst/System> .
+                                  <https://saref.etsi.org/saref4syst/System> ;
+                  rdfs:label "ServiceZone"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#SimulatedHazardEvent
+swade:SimulatedHazardEvent rdf:type owl:Class ;
+                           rdfs:subClassOf swade:HazardEvent ;
+                           rdfs:label "SimulatedHazardEvent"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#SmallPipeLAWDP
 swade:SmallPipeLAWDP rdf:type owl:Class ;
-                     rdfs:subClassOf s4watr:Pipe .
+                     rdfs:subClassOf s4watr:Pipe ;
+                     rdfs:label "SmallPipe"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#TransmissionTrunkPipe
 swade:TransmissionTrunkPipe rdf:type owl:Class ;
-                            rdfs:subClassOf s4watr:Pipe .
+                            rdfs:subClassOf s4watr:Pipe ;
+                            rdfs:label "TransmissionTrunkPipe"@en .
 
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#WaterNetwork
@@ -205,7 +487,8 @@ swade:WaterNetwork rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/malikluti/ontologies/swade#WaterSourcePipe
 swade:WaterSourcePipe rdf:type owl:Class ;
-                      rdfs:subClassOf s4watr:Pipe .
+                      rdfs:subClassOf s4watr:Pipe ;
+                      rdfs:label "WaterSourcePipe"@en .
 
 
 ###  https://saref.etsi.org/saref4watr/Pipe
@@ -517,6 +800,13 @@ swade:WJ rdf:type owl:NamedIndividual ,
 s4watr:COP rdf:type owl:NamedIndividual ;
            swade:code "COP"^^xsd:string ;
            rdfs:label "Copper" .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+<http://schema.org/Organization> rdfs:label "Organization"@en .
 
 
 #################################################################

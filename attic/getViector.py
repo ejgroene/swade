@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import networkx as nx
 from ast import Return
-from sentence_transformers import SentenceTransformer, util
+# sentence_transformers import SentenceTransformer, util
 
 directory_path = r'C:\Users\gg363d\Source\Repos\swade\data'
 

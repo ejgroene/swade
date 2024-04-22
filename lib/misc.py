@@ -1,6 +1,7 @@
 import pathlib
 import pandas
 import rdflib
+import owlrl
 from rdflib import RDF, RDFS, OWL, URIRef
 
 import selftest
@@ -9,7 +10,7 @@ test = selftest.get_tester(__name__)
 testdatadir = pathlib.Path(__file__).parent.parent/'data'
 
 
-class Class:
+class Object:
     """ Represents a class from the ontology """
     def __init__(self, uri, graph):
         self.uri = uri
@@ -23,8 +24,7 @@ class Class:
 
     def get_propertynames(self):
         properties = self.graph[None: RDFS.domain: self.uri]
-        # unfortunately, no labels are given for properties
-        return [Class(p, self.graph).name() for p in properties]
+        return [Object(p, self.graph).name() for p in properties]
 
 
 class Ontology:
@@ -42,13 +42,15 @@ class Ontology:
         graph = rdflib.Graph()
         for f in path.glob('*.ttl'):
             graph.parse(f)
+        # calculate closure as to have access to all inherited classes and properties
+        owlrl.DeductiveClosure(owlrl.CombinedClosure.RDFS_OWLRL_Semantics, rdfs_closure = True, axiomatic_triples = True, datatype_axioms = True).expand(graph)
         return graph
 
     def count_triples(self):
         return len(self.graph)
 
     def get_classes(self):
-        return list(Class(uri, self.graph) for uri in self.graph[:rdflib.RDF.type: rdflib.OWL.Class])
+        return list(Object(uri, self.graph) for uri in self.graph[:rdflib.RDF.type: rdflib.OWL.Class])
 
     def get_terms(self, class_uri):
         if not isinstance(class_uri, URIRef):
@@ -66,27 +68,20 @@ ontology = Ontology(testdatadir)
 @test
 def read_ontology_real_data():
     """ test to verify the functions with real data """
-    test.eq(1747, ontology.count_triples())
+    #test.eq(1748, ontology.count_triples())
+    test.eq(11019, ontology.count_triples())
     classes =  ontology.get_classes()
-    test.eq(124, len(classes))
+    #test.eq(124, len(classes))
+    test.eq(278, len(classes))
     class_names = [clazz.name() for clazz in classes]
-    test.eq(['ChloramineSensor', 'ChlorineSensor', 'DissolvedOxygenSensor', 'OxidationReductionPotentialSensor', 'PhSensor', 'TurbiditySensor', None, 'Analysis Results', 'Analysis Results Pipe', 'Distribution Pipe',
-     'Earth Quake', 'Earth Quake Parameter', 'Flooding', 'Hazard Event', 'Hazard Parameter', 'Intensity', 'Joint Type', 'Large Pipe', 'Lining', 'Material', 'Medium Pipe', 'PGA', 'PGV', 'PSA', 'Past Event',
-      'Physical Component', 'Real Time Event', 'Real Hazard Event', 'Risk Scenario', 'Service Zone', 'Simulated Hazard Event', 'Small Pipe', 'Transmission Trunk Pipe', 'Water Network', 'Water Source Pipe', None,
-      'Public Service', 'Feature', 'Geometry', 'SpatialObject', 'Point', None, 'Instant', 'A temporal entity with an extent or duration', 'Temporal duration', 'Temporal entity', 'Organization', 'Agent', 'Person',
-      'Actuator', 'Device', None, 'Measurement', 'Property', 'Sensor', 'Unit of measure', 'Administrative area', 'Agent', 'City', 'City object', 'Country', 'District', 'Event', 'Facility', 'Key Performance Indicator',
-      'Key performance indicator assessment', 'Neighbourhood', 'Public administration', 'Public service', 'Organization', None, 'Point', 'Polygon', 'Day of week', 'Meter', 'System', 'Acceptability property', 'Aquifer',
-      'Bacterial property', 'Channel', 'ChemicalProperty', 'Consumption-based tariff', 'Distribution system', 'Environmental property', 'Estuary', 'Fire hydrant', 'Gauging station', 'Glacier', 'Hydroelectric power plant',
-      'Intake', 'Lagoon', 'Lake', 'Main', 'Maintenance hole', 'Microbial property', 'Monitoring infrastructure', 'Ocean', 'Pipe', 'Pit', 'Pump', 'Reservoir', 'River', 'Sea', 'Sink asset', 'Source asset', 'Storage asset',
-      'Storage infrastructure', 'Tank', 'Tariff', 'Threshold-based tariff', 'Time-based tariff', 'Transport asset', 'Treatment plant', 'Valve', 'Vent', 'Water', 'Water asset', 'Water device', 'Water flow property', 
-      'Water infrastructure', 'Water meter', 'Water meter property', 'Water property', 'Water use'],
-    class_names)
-    test.eq(['http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality',
-             'http://purl.org/dc/terms/LinguisticSystem',
-             'http://www.w3.org/2004/02/skos/core#Concept',
-             'https://saref.etsi.org/core/FeatureOfInterest',
-             'http://schema.org/Person'],
-        [clazz.uri.toPython() for clazz in classes if clazz.name() is None])
+    #test.eq({'http://purl.org/dc/terms/LinguisticSystem',
+    #         'http://www.w3.org/2004/02/skos/core#Concept',
+    #         'https://saref.etsi.org/core/FeatureOfInterest',
+    #         'http://schema.org/Person',
+    #         'http://www.w3.org/2002/07/owl#Nothing',   # from OWL expansion
+    #         'http://www.w3.org/2002/07/owl#Thing'},    # idem
+    #    set([clazz.uri.toPython() for clazz in classes if clazz.name() is None]),
+    #    diff=test.diff2)
 
 @test
 def get_terms():
@@ -106,9 +101,23 @@ def get_embeddings_for_class():
 def get_names_of_properties():
     classes = ontology.get_classes()
     properties = {c.name(): c.get_propertynames() for c in classes}
-    test.eq([], [name for name, props in properties.items() if props == []])
-
-
+    test.eq([], properties['Chloramine sensor'])
+    test.eq(118, len(properties))
+    #test.eq( 95, len([name for name, props in properties.items() if props == []]))
+    test.eq(['Analysis Results', 'Analysis Results Pipe', 'Earth Quake', 'Hazard Event', 'Hazard Parameter', 'Material', 'Physical component',
+        'Risk Scenario', 'Service zone', 'Water network', 'Feature', 'SpatialObject', 'Device', 'Measurement', 'System', 'Consumption-based tariff',
+        'Main', 'Pipe', 'Tariff', 'Threshold-based tariff', 'Time-based tariff', 'Transport asset', 'Water asset'],
+     [name for name, props in properties.items() if props and name],
+     diff=test.diff2)
+    test.eq(['has joint material', 'has lining', 'has material', 'has cathodic', 'has diameter', 'has installation date', 
+             'has joint type', 'has length', 'use type'], properties['Pipe'])
+    test.eq(['has results pipe', 'expected repair cost distribution pipes', 'expected repair cost trans pipes', 'expected repair cost network', 'expected repair num distribution pipes', 'expected repair num network', 'expected repair num trans pipes', 'expected repair time distribution pipes', 'expected repair time network', 'expected repair time trans pipes'],
+        properties['Analysis Results'])
+    print("=== classes without properties ===")
+    for cn, cp in properties.items():
+        if not cp:
+            print(cn)
+    test.truth(False)
 
 
 

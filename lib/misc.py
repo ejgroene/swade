@@ -24,7 +24,7 @@ class Class:
     def get_propertynames(self):
         properties = self.graph[None: RDFS.domain: self.uri]
         # unfortunately, no labels are given for properties
-        return [p.toPython() for p in properties]
+        return [Class(p, self.graph).name() for p in properties]
 
 
 class Ontology:
@@ -66,24 +66,27 @@ ontology = Ontology(testdatadir)
 @test
 def read_ontology_real_data():
     """ test to verify the functions with real data """
-    test.eq(1576, ontology.count_triples())
+    test.eq(1747, ontology.count_triples())
     classes =  ontology.get_classes()
-    test.eq(108, len(classes))
-    test.eq([None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None,
-        'Public Service', 'Feature', 'Geometry', 'SpatialObject', 'Point', None, 'Instant', 'A temporal entity with an extent or duration',
-        'Temporal duration', 'Temporal entity', 'Organization', 'Agent', 'Person', 'Actuator', 'Device', None, 'Measurement', 'Property',
-        'Sensor', 'Unit of measure', 'Administrative area', 'Agent', 'City', 'City object', 'Country', 'District', 'Event', 'Facility', 
-        'Key Performance Indicator', 'Key performance indicator assessment', 'Neighbourhood', 'Public administration', 'Public service',
-        None, None, 'Point', 'Polygon', 'Day of week', 'Meter', 'System', 'Acceptability property', 'Aquifer', 'Bacterial property',
-        'Channel', 'ChemicalProperty', 'Consumption-based tariff', 'Distribution system', 'Environmental property', 'Estuary', 
-        'Fire hydrant', 'Gauging station', 'Glacier', 'Hydroelectric power plant', 'Intake', 'Lagoon', 'Lake', 'Main', 'Maintenance hole',
-        'Microbial property', 'Monitoring infrastructure', 'Ocean', 'Pipe', 'Pit', 'Pump', 'Reservoir', 'River', 'Sea', 'Sink asset',
-        'Source asset', 'Storage asset', 'Storage infrastructure', 'Tank', 'Tariff', 'Threshold-based tariff', 'Time-based tariff',
-        'Transport asset', 'Treatment plant', 'Valve', 'Vent', 'Water', 'Water asset', 'Water device', 'Water flow property',
-        'Water infrastructure', 'Water meter', 'Water meter property', 'Water property', 'Water use'],
-    [clazz.name() for clazz in classes])
-    # uncomment to see URIs without rdfs.label
-    #test.eq([], [clazz.uri.toPython() for clazz in classes if clazz.name() is None])
+    test.eq(124, len(classes))
+    class_names = [clazz.name() for clazz in classes]
+    test.eq(['ChloramineSensor', 'ChlorineSensor', 'DissolvedOxygenSensor', 'OxidationReductionPotentialSensor', 'PhSensor', 'TurbiditySensor', None, 'Analysis Results', 'Analysis Results Pipe', 'Distribution Pipe',
+     'Earth Quake', 'Earth Quake Parameter', 'Flooding', 'Hazard Event', 'Hazard Parameter', 'Intensity', 'Joint Type', 'Large Pipe', 'Lining', 'Material', 'Medium Pipe', 'PGA', 'PGV', 'PSA', 'Past Event',
+      'Physical Component', 'Real Time Event', 'Real Hazard Event', 'Risk Scenario', 'Service Zone', 'Simulated Hazard Event', 'Small Pipe', 'Transmission Trunk Pipe', 'Water Network', 'Water Source Pipe', None,
+      'Public Service', 'Feature', 'Geometry', 'SpatialObject', 'Point', None, 'Instant', 'A temporal entity with an extent or duration', 'Temporal duration', 'Temporal entity', 'Organization', 'Agent', 'Person',
+      'Actuator', 'Device', None, 'Measurement', 'Property', 'Sensor', 'Unit of measure', 'Administrative area', 'Agent', 'City', 'City object', 'Country', 'District', 'Event', 'Facility', 'Key Performance Indicator',
+      'Key performance indicator assessment', 'Neighbourhood', 'Public administration', 'Public service', 'Organization', None, 'Point', 'Polygon', 'Day of week', 'Meter', 'System', 'Acceptability property', 'Aquifer',
+      'Bacterial property', 'Channel', 'ChemicalProperty', 'Consumption-based tariff', 'Distribution system', 'Environmental property', 'Estuary', 'Fire hydrant', 'Gauging station', 'Glacier', 'Hydroelectric power plant',
+      'Intake', 'Lagoon', 'Lake', 'Main', 'Maintenance hole', 'Microbial property', 'Monitoring infrastructure', 'Ocean', 'Pipe', 'Pit', 'Pump', 'Reservoir', 'River', 'Sea', 'Sink asset', 'Source asset', 'Storage asset',
+      'Storage infrastructure', 'Tank', 'Tariff', 'Threshold-based tariff', 'Time-based tariff', 'Transport asset', 'Treatment plant', 'Valve', 'Vent', 'Water', 'Water asset', 'Water device', 'Water flow property', 
+      'Water infrastructure', 'Water meter', 'Water meter property', 'Water property', 'Water use'],
+    class_names)
+    test.eq(['http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality',
+             'http://purl.org/dc/terms/LinguisticSystem',
+             'http://www.w3.org/2004/02/skos/core#Concept',
+             'https://saref.etsi.org/core/FeatureOfInterest',
+             'http://schema.org/Person'],
+        [clazz.uri.toPython() for clazz in classes if clazz.name() is None])
 
 @test
 def get_terms():
@@ -102,9 +105,8 @@ def get_embeddings_for_class():
 @test
 def get_names_of_properties():
     classes = ontology.get_classes()
-    for clazz in classes:
-        properties = clazz.get_propertynames()
-        test.eq([], properties)
+    properties = {c.name(): c.get_propertynames() for c in classes}
+    test.eq([], [name for name, props in properties.items() if props == []])
 
 
 

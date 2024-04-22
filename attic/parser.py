@@ -72,8 +72,8 @@ for s1, p1, o1 in graph.triples((None, RDF.type, OWL.Class)):
 
     classes.append(new_class)
 
-# for c in classes:
-#   print(c)
+for c in classes:
+   print(c)
 
 # print(classes.__len__())
 # chunk_classes = [classes[x:x + 10] for x in range(0, len(classes), 10)]

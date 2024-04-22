@@ -1,0 +1,2400 @@
+@prefix : <http://www.semanticweb.org/malikluti/ontologies/2024/april/swade#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/malikluti/ontologies/2024/april/swade> .
+
+<http://www.semanticweb.org/malikluti/ontologies/2024/april/swade> rdf:type owl:Ontology ;
+                                                                    <http://purl.org/dc/terms/creator> <http://maxime-lefrancois.info/me#> ,
+                                                                                                       <http://w3id.org/people/mpoveda> ,
+                                                                                                       <http://www.garcia-castro.com/foaf.rdf#me> ,
+                                                                                                       <https://w3id.org/people/mpoveda/> ,
+                                                                                                       <https://www.linkedin.com/in/lauradaniele> ,
+                                                                                                       <https://www.linkedin.com/in/paolaespinoza-arias/> ;
+                                                                    <http://purl.org/dc/terms/description> "The Smart Applications REFerence ontology (SAREF) is intended to enable interoperability between solutions from different providers and among various activity sectors in the Internet of Things (IoT), thus contributing to the development of the global digital market."@en ,
+                                                                                                           "This ontology extends the SAREF ontology for the Smart City domain. This work has been developed in the context of the STF 534 (https://portal.etsi.org/STF/STFs/STFHomePages/STF534.aspx), which was established with the goal to create three SAREF extensions, one of them for the Smart City domain."@en ,
+                                                                                                           "This ontology extends the SAREF ontology for the water domain. This work has been developed in the context of the STF 566, which was established with the goal to create three SAREF extensions, one of them for the water domain."@en ;
+                                                                    <http://purl.org/dc/terms/issued> "2020-02-11"^^xsd:date ,
+                                                                                                      "2020-04-01"^^xsd:date ;
+                                                                    <http://purl.org/dc/terms/license> <https://forge.etsi.org/etsi-software-license> ;
+                                                                    <http://purl.org/dc/terms/modified> "2020-05-29"^^xsd:date ,
+                                                                                                        "2020-06-03"^^xsd:date ,
+                                                                                                        "2020-06-05"^^xsd:date ;
+                                                                    <http://purl.org/dc/terms/publisher> <https://www.etsi.org/> ;
+                                                                    <http://purl.org/dc/terms/source> <https://saref.etsi.org/sources/saref-core/> ,
+                                                                                                      <https://saref.etsi.org/sources/saref4city/> ,
+                                                                                                      <https://saref.etsi.org/sources/saref4watr/> ;
+                                                                    <http://purl.org/dc/terms/title> "SAREF extension for Smart City"@en ,
+                                                                                                     "SAREF extension for water"@en ,
+                                                                                                     "SAREF: the Smart Applications REFerence ontology"@en ;
+                                                                    <http://purl.org/vocab/vann/preferredNamespacePrefix> "s4city" ,
+                                                                                                                          "s4watr" ,
+                                                                                                                          "saref" ;
+                                                                    <http://purl.org/vocab/vann/preferredNamespaceUri> "https://saref.etsi.org/core/" ,
+                                                                                                                       "https://saref.etsi.org/saref4city/" ,
+                                                                                                                       "https://saref.etsi.org/saref4watr/" ;
+                                                                    rdfs:comment """Information about changes compared to version 1.1.1:
+ - The classes and properties related to how to represent devices in building spaces (such as the saref:BuildingSpace class,  saref:BuildingObject class and saref:isLocatedIn property) have been removed from SAREF and incorporated  into the SAREF4BLDG extension related to buildings, including the reuse of the W3C? WGS84 geo positioning vocabulary.
+ - The saref:DeviceCategory and saref:FunctionCategory classes have been removed. Instead, the hierarchy of device categories has been implemented directly as subclasses of the saref:Device class.
+ - The information specific for energy efficiency has been moved to the SAREF4ENER extension. For example, the saref:Profile class has been redefined to accommodate only the properties that are general enough for any type of profile, not only for energy and power. Details on how to specifically model a power profile can be found in the SAREF4ENER extension. 
+ - The subclasses of the saref:Energy class  have been removed (i.e., Average Energy, Maximum Energy, Minimum Energy, Total Energy, HVAC Energy, Hot Water Energy and Lighting Energy).
+ - The saref:Property class has been split into two classes (saref:Property and saref:Measurement), as it is done in the SAREF4ENVI extension, in order to properly accommodate the distinction between the concept of property (an observable quality of something) and the concept of measurement (a concrete value observed for a property).
+ - Too restrictive cardinality restrictions have been revised, sometimes making them optional rather than mandatory (better to make properties mandatory in the extensions that specialize SAREF for a specific purpose, rather than restricting SAREF, whose purpose is more general). For example, definitions of units of measurement using an enumeration (owl:oneOf) were too restrictive because they did not allow using other units than those enumerated. Therefore, the individuals of each class are still there, but the owl:oneOf enumeration has been removed.
+ - The saref:UnitOfMeasure subclasses use individuals from the OM ontology for unit of measures, but this is not the only solution. It has been clarified in the comments that the OM ontology is an example, but other ontologies can be used.
+ - The global restrictions (rdfs:domain and rdfs:range) in object properties have been completely removed not to hinder interoperability. Object properties are now only restricted locally in the classes. 
+ - The subclasses of saref:Task have been transormed in individuals.
+ - The saref:hasTask property has been removed from the saref:Profile class to resolve an ambiguity with the saref:Task class.""" ,
+                                                                                 """Information about changes compared to version 1.1.1: 
+ - Updated namespaces for compatibility with SAREF v3."""@en ,
+                                                                                 """Information about changes compared to version 2.1.1: 
+ - Added the saref:FeatureOfInterest class and the properties used to relate it to saref:Measurement (saref:hasMeasurement and saref:isMeasurementOf) and to saref:Property (saref:hasProperty and saref:isPropertyOf).
+ - Added the saref:measurementMadeBy property as inverse of saref:makesMeasurement.
+ - The saref:relatesToProperty and saref:relatesToMeasurement properties are now inverse of each other.
+ - The range of saref:hasValue, which was defined as xsd:float, has been removed to support other datatypes for measurements.
+ - The range of datatype properties, which was defined as xsd:string, has been removed in order to support strings with language tags (rdf:langString). This affects saref:hasDescription, saref:hasManufacturer, saref:hasModel and saref:hasName, which now have implicitly a range of rdfs:Literal.
+ - The saref:hasName property has been removed and the use of rdfs:label is recommended. 
+ - The saref:hasDescription property has been deprecated and the use of rdfs:comment is recommended. 
+ - Too restrictive restrictions have been removed and in some cases the ontology documentation has been updated to reflect this: a saref:Command having at most one saref:hasDescription; a saref:Task being accomplished by at least one saref:Device; a saref:Device having a typical consumption of only energy or power; a saref:Commodity being measured in units of measure; restrictions on the values of saref:accomplishes that only covered specific use cases; universal restrictions on the saref:actsUpon property have been changed to existential ones; restrictions on the commands that a saref:Function may have, since there could be others not included in the defined enumerations; restrictive documentation of saref:EventFunction and saref:SmokeSensor.
+ - Bugs have been fixed: some devices (saref:DoorSwitch, saref:EnergyMeter, saref:LigthSwitch, saref:SmokeSensor, and saref:TemperatureSensor) were defined as subclass of a device and at the same time as consisting of such device; a saref:LightSwitch controls light and does not measure light, since it is an actuator; incorrect documentation of saref:OnState and saref:OffState.
+ - The saref:BuildingRelated, saref:EnergyRelated and saref:FunctionRelated classes have been removed, since the different extensions already classify the device types.
+ - The instances of the subclasses of saref:Command have been removed, since they represent examples.
+ - The instances of saref:UnitOfMeasure have been moved to examples.
+ - The classes related to the SAREF4ENER extension have been removed: saref:Generator, saref:Storage, saref:Load and saref:EnergyMeter.
+ - Some instances of saref:Device have been moved to examples: saref:WashingMachine, saref:LightingDevice, saref:MicroRenewable, saref:Multimedia, and saref:Network.
+ - Added domain and range axioms wherever the definition of a property unambiguously identifies the domain or the range of the property.
+ - The OWL Time ontology is not imported anymore.
+ - The documentation of some ontology terms has been updated for clarification.
+ - Language tags have been added to all labels and comments.
+""" ;
+                                                                    rdfs:seeAlso <https://www.etsi.org/deliver/etsi_ts/103200_103299/103264/03.01.01_60/ts_103264v030101p.pdf> ,
+                                                                                 <https://www.etsi.org/deliver/etsi_ts/103400_103499/10341004/01.01.02_60/ts_10341004v010102p.pdf> ,
+                                                                                 <https://www.etsi.org/deliver/etsi_ts/103400_103499/10341010/01.01.01_60/ts_10341010v010101p.pdf> ;
+                                                                    owl:versionInfo "v1.1.1" ,
+                                                                                    "v1.1.2" ,
+                                                                                    "v3.1.1" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/creator
+<http://purl.org/dc/terms/creator> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/description
+<http://purl.org/dc/terms/description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/issued
+<http://purl.org/dc/terms/issued> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/modified
+<http://purl.org/dc/terms/modified> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/publisher
+<http://purl.org/dc/terms/publisher> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+<http://purl.org/dc/terms/source> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+<http://purl.org/dc/terms/title> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespacePrefix
+<http://purl.org/vocab/vann/preferredNamespacePrefix> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespaceUri
+<http://purl.org/vocab/vann/preferredNamespaceUri> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.org/vocab/cpsv#PublicService
+<http://purl.org/vocab/cpsv#PublicService> rdf:type owl:Class ;
+                                           rdfs:comment "This class represents the service itself. A public service is the capacity to carry out a procedure and exists whether it is used or not. It is a set of deeds and acts performed by or on behalf of a public agency for the benefit of a citizen, a business or another public agency."@en ;
+                                           rdfs:isDefinedBy <http://purl.org/vocab/cpsv#> ;
+                                           rdfs:label "Public Service"@en .
+
+
+###  http://www.opengis.net/ont/geosparql#Feature
+<http://www.opengis.net/ont/geosparql#Feature> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.opengis.net/ont/geosparql#SpatialObject> ;
+                                               rdfs:comment "This class represents the top-level feature type. This class is equivalent to GFI_Feature defined in ISO 19156:2011, and it is superclass of all feature types."@en ;
+                                               rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> ,
+                                                                <http://www.opengis.net/ont/geosparql#> ;
+                                               rdfs:label "Feature"@en .
+
+
+###  http://www.opengis.net/ont/geosparql#Geometry
+<http://www.opengis.net/ont/geosparql#Geometry> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.opengis.net/ont/geosparql#SpatialObject> ;
+                                                rdfs:comment "The class represents the top-level geometry type. This class is equivalent to the UML class GM_Object defined in ISO 19107, and it is superclass of all geometry types."@en ;
+                                                rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> ,
+                                                                 <http://www.opengis.net/ont/geosparql#> ;
+                                                rdfs:label "Geometry"@en .
+
+
+###  http://www.opengis.net/ont/geosparql#SpatialObject
+<http://www.opengis.net/ont/geosparql#SpatialObject> rdf:type owl:Class ;
+                                                     rdfs:comment "The class spatial-object represents everything that can have a spatial representation. It is superclass of feature and geometry."@en ;
+                                                     rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> ,
+                                                                      <http://www.opengis.net/ont/geosparql#> ;
+                                                     rdfs:label "Spatial object"@en ,
+                                                                "SpatialObject"@en .
+
+
+###  http://www.opengis.net/ont/sf#Point
+<http://www.opengis.net/ont/sf#Point> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Geometry> ;
+                                      rdfs:isDefinedBy <http://www.opengis.net/ont/sf#> ;
+                                      rdfs:label "Point"@en .
+
+
+###  http://www.opengis.net/ont/sf#Polygon
+<http://www.opengis.net/ont/sf#Polygon> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Geometry> ;
+                                        rdfs:isDefinedBy <http://www.opengis.net/ont/sf#> ;
+                                        rdfs:label "Polygon"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChloramineSensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChloramineSensor> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                               rdfs:label "Chloramine sensor"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChlorineSensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#ChlorineSensor> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                             rdfs:label "Chlorine sensor"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#DissolvedOxygenSensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#DissolvedOxygenSensor> rdf:type owl:Class ;
+                                                                                                    rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                                    rdfs:label "Dissolved oxygen sensor"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#OxidationReductionPotentialSensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#OxidationReductionPotentialSensor> rdf:type owl:Class ;
+                                                                                                                rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                                                rdfs:label "Oxidation reduction potential sensor"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#PhSensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#PhSensor> rdf:type owl:Class ;
+                                                                                       rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                       rdfs:label "Ph sensor"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#TurbiditySensor
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#TurbiditySensor> rdf:type owl:Class ;
+                                                                                              rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> ;
+                                                                                              rdfs:label "Turbidity sensor"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality
+<http://www.semanticweb.org/malikluti/ontologies/2022/2/untitled-ontology-39#WaterQuality> rdf:type owl:Class ;
+                                                                                           rdfs:subClassOf <https://saref.etsi.org/core/Sensor> ;
+                                                                                           rdfs:comment "This class will have all the water quality sensors." ;
+                                                                                           rdfs:label "Water quality"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#DistributionPipe
+<http://www.semanticweb.org/malikluti/ontologies/swade#DistributionPipe> rdf:type owl:Class ;
+                                                                         rdfs:subClassOf <https://saref.etsi.org/saref4watr/Pipe> ;
+                                                                         rdfs:label "Distribution pipe"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuake
+<http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuake> rdf:type owl:Class ;
+                                                                   rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#HazardEvent> ;
+                                                                   rdfs:label "Earth Quake"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuakeParameter
+<http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuakeParameter> rdf:type owl:Class ;
+                                                                            rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#HazardParameter> ;
+                                                                            rdfs:label "Earth Quake Parameter"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Flooding
+<http://www.semanticweb.org/malikluti/ontologies/swade#Flooding> rdf:type owl:Class ;
+                                                                 rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#HazardEvent> ;
+                                                                 rdfs:label "Flooding"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#HazardEvent
+<http://www.semanticweb.org/malikluti/ontologies/swade#HazardEvent> rdf:type owl:Class ;
+                                                                    rdfs:label "Hazard Event"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#HazardParameter
+<http://www.semanticweb.org/malikluti/ontologies/swade#HazardParameter> rdf:type owl:Class ;
+                                                                        rdfs:label "Hazard Parameter"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Intensity
+<http://www.semanticweb.org/malikluti/ontologies/swade#Intensity> rdf:type owl:Class ;
+                                                                  rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuakeParameter> ;
+                                                                  rdfs:label "Intensity"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#LargePipeLAWDP
+<http://www.semanticweb.org/malikluti/ontologies/swade#LargePipeLAWDP> rdf:type owl:Class ;
+                                                                       rdfs:subClassOf <https://saref.etsi.org/saref4watr/Pipe> ;
+                                                                       rdfs:label "Large pipe"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#MediumPipeLAWDP
+<http://www.semanticweb.org/malikluti/ontologies/swade#MediumPipeLAWDP> rdf:type owl:Class ;
+                                                                        rdfs:subClassOf <https://saref.etsi.org/saref4watr/Pipe> ;
+                                                                        rdfs:label "Medium pipe"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PGA
+<http://www.semanticweb.org/malikluti/ontologies/swade#PGA> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuakeParameter> ;
+                                                            rdfs:label "PGA"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PGV
+<http://www.semanticweb.org/malikluti/ontologies/swade#PGV> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuakeParameter> ;
+                                                            rdfs:label "PGV"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PSA
+<http://www.semanticweb.org/malikluti/ontologies/swade#PSA> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#EarthQuakeParameter> ;
+                                                            rdfs:label "PSA"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PastEvent
+<http://www.semanticweb.org/malikluti/ontologies/swade#PastEvent> rdf:type owl:Class ;
+                                                                  rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#RealHazardEvent> ;
+                                                                  rdfs:label "Past Event"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#PhysicalComponent
+<http://www.semanticweb.org/malikluti/ontologies/swade#PhysicalComponent> rdf:type owl:Class ;
+                                                                          owl:equivalentClass <https://saref.etsi.org/saref4watr/WaterAsset> ;
+                                                                          rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ,
+                                                                                          <https://saref.etsi.org/core/FeatureOfInterest> ,
+                                                                                          <https://saref.etsi.org/saref4syst/System> ;
+                                                                          rdfs:label "Physical component"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#Real-TimeEvent
+<http://www.semanticweb.org/malikluti/ontologies/swade#Real-TimeEvent> rdf:type owl:Class ;
+                                                                       rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#RealHazardEvent> ;
+                                                                       rdfs:label "Real Time Event"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#RealHazardEvent
+<http://www.semanticweb.org/malikluti/ontologies/swade#RealHazardEvent> rdf:type owl:Class ;
+                                                                        rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#HazardEvent> ;
+                                                                        rdfs:label "Real Hazard Event"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#ServiceZone
+<http://www.semanticweb.org/malikluti/ontologies/swade#ServiceZone> rdf:type owl:Class ;
+                                                                    rdfs:subClassOf <http://www.opengis.net/ont/geosparql#SpatialObject> ,
+                                                                                    <https://saref.etsi.org/saref4syst/System> ;
+                                                                    rdfs:label "Service zone"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#SimulatedHazardEvent
+<http://www.semanticweb.org/malikluti/ontologies/swade#SimulatedHazardEvent> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#HazardEvent> ;
+                                                                             rdfs:label "Simulated Hazard Event"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#SmallPipeLAWDP
+<http://www.semanticweb.org/malikluti/ontologies/swade#SmallPipeLAWDP> rdf:type owl:Class ;
+                                                                       rdfs:subClassOf <https://saref.etsi.org/saref4watr/Pipe> ;
+                                                                       rdfs:label "Small pipe"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#TransmissionTrunkPipe
+<http://www.semanticweb.org/malikluti/ontologies/swade#TransmissionTrunkPipe> rdf:type owl:Class ;
+                                                                              rdfs:subClassOf <https://saref.etsi.org/saref4watr/Pipe> ;
+                                                                              rdfs:label "Transmission trunk pipe"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#WaterNetwork
+<http://www.semanticweb.org/malikluti/ontologies/swade#WaterNetwork> rdf:type owl:Class ;
+                                                                     rdfs:subClassOf <https://saref.etsi.org/saref4syst/System> ;
+                                                                     rdfs:label "Water network"@en .
+
+
+###  http://www.semanticweb.org/malikluti/ontologies/swade#WaterSourcePipe
+<http://www.semanticweb.org/malikluti/ontologies/swade#WaterSourcePipe> rdf:type owl:Class ;
+                                                                        rdfs:subClassOf <https://saref.etsi.org/saref4watr/Pipe> ;
+                                                                        rdfs:label "Water source pipe"@en .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#Point
+<http://www.w3.org/2003/01/geo/wgs84_pos#Point> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Geometry> ;
+                                                rdfs:comment """ 
+Uniquely identified by lat/long/alt. i.e.
+
+spaciallyIntersects(P1, P2) :- lat(P1, LAT), long(P1, LONG), alt(P1, ALT),
+  lat(P2, LAT), long(P2, LONG), alt(P2, ALT).
+
+sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P2).
+  """ ,
+                                                             "A point, typically described using a coordinate system relative to Earth, such as WGS84." ;
+                                                rdfs:isDefinedBy <http://www.w3.org/2003/01/geo/wgs84_pos#> ;
+                                                rdfs:label "Point"@en .
+
+
+###  http://www.w3.org/2006/time#Instant
+<http://www.w3.org/2006/time#Instant> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://www.w3.org/2006/time#TemporalEntity> ;
+                                      rdfs:comment "A temporal entity with zero extent or duration"@en ;
+                                      rdfs:isDefinedBy <http://www.w3.org/2006/time#> ;
+                                      rdfs:label "Instant"@en .
+
+
+###  http://www.w3.org/2006/time#Interval
+<http://www.w3.org/2006/time#Interval> rdf:type owl:Class ;
+                                       rdfs:subClassOf <http://www.w3.org/2006/time#TemporalEntity> ;
+                                       rdfs:comment "A temporal entity with an extent or duration."@en ;
+                                       rdfs:isDefinedBy <http://www.w3.org/2006/time#> ;
+                                       rdfs:label "A temporal entity with an extent or duration"@en ,
+                                                  "Interval"@en ,
+                                                  "Time interval"@en .
+
+
+###  http://www.w3.org/2006/time#TemporalEntity
+<http://www.w3.org/2006/time#TemporalEntity> rdf:type owl:Class ;
+                                             rdfs:comment "A temporal interval or instant."@en ;
+                                             rdfs:isDefinedBy <http://www.w3.org/2006/time#> ;
+                                             rdfs:label "Temporal entity"@en .
+
+
+###  http://www.w3.org/ns/org#Organization
+<http://www.w3.org/ns/org#Organization> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://xmlns.com/foaf/0.1/Agent> ;
+                                        rdfs:isDefinedBy <http://www.w3.org/ns/org#> ;
+                                        rdfs:label "Organization"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Agent
+<http://xmlns.com/foaf/0.1/Agent> rdf:type owl:Class ;
+                                  rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                  rdfs:label "Agent"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+<http://xmlns.com/foaf/0.1/Person> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://xmlns.com/foaf/0.1/Agent> ;
+                                   rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                   rdfs:label "Person"@en .
+
+
+###  https://saref.etsi.org/core/ActuatingFunction
+<https://saref.etsi.org/core/ActuatingFunction> rdf:type owl:Class ;
+                                                rdfs:subClassOf <https://saref.etsi.org/core/Function> ;
+                                                rdfs:comment "A function that allows to transmit data to actuators, such as level settings (e.g., temperature) or binary switching (e.g., open/close, on/off)"@en ;
+                                                rdfs:label "Actuating function"@en .
+
+
+###  https://saref.etsi.org/core/Actuator
+<https://saref.etsi.org/core/Actuator> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://saref.etsi.org/core/Device> ;
+                                       rdfs:comment "A device responsible for moving or controlling a mechanism or system"@en ,
+                                                    "A device responsible for moving or controlling a mechanism or system by performing an actuating function"@en ,
+                                                    "A device responsible for moving or controlling a mechanism or system."@en ;
+                                       rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                       rdfs:label "Actuator"@en .
+
+
+###  https://saref.etsi.org/core/Appliance
+<https://saref.etsi.org/core/Appliance> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://saref.etsi.org/core/Device> ;
+                                        rdfs:comment "An electrical/mechanical machine that accomplish some household functions, such as cleaning or cooking"@en ;
+                                        rdfs:label "Appliance"@en .
+
+
+###  https://saref.etsi.org/core/CloseCommand
+<https://saref.etsi.org/core/CloseCommand> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                           rdfs:comment "A type of command"@en ;
+                                           rdfs:label "Close command"@en .
+
+
+###  https://saref.etsi.org/core/CloseState
+<https://saref.etsi.org/core/CloseState> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/core/OpenCloseState> ;
+                                         rdfs:comment "The state of a device that is CLOSE"@en ;
+                                         rdfs:label "Close state"@en .
+
+
+###  https://saref.etsi.org/core/Coal
+<https://saref.etsi.org/core/Coal> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://saref.etsi.org/core/Commodity> ;
+                                   rdfs:comment "A type of commodity"@en ;
+                                   rdfs:label "Coal"@en .
+
+
+###  https://saref.etsi.org/core/Command
+<https://saref.etsi.org/core/Command> rdf:type owl:Class ;
+                                      rdfs:comment "A directive that a device must support to perform a certain function. A command may act upon a state, but does not necessarily act upon a state. For example, the ON command acts upon the ON/OFF state, but the GET command does not act upon any state, it simply gives a directive to retrieve a certain value. We propose here a list of commands that are relevant for the purpose of SAREF, but this list can be extended."@en ;
+                                      rdfs:label "Command"@en .
+
+
+###  https://saref.etsi.org/core/Commodity
+<https://saref.etsi.org/core/Commodity> rdf:type owl:Class ;
+                                        rdfs:comment "A marketable item for which there is demand, but which is supplied without qualitative differentiation across a market. SAREF refers to energy commodities such as electricity, gas, coal and oil. "@en ;
+                                        rdfs:label "Commodity"@en .
+
+
+###  https://saref.etsi.org/core/Currency
+<https://saref.etsi.org/core/Currency> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://saref.etsi.org/core/UnitOfMeasure> ;
+                                       rdfs:comment "The class of units of measure for price"@en ;
+                                       rdfs:label "Currency"@en .
+
+
+###  https://saref.etsi.org/core/Device
+<https://saref.etsi.org/core/Device> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ;
+                                     rdfs:comment "A tangible object designed to accomplish a particular task in households, common public buildings or offices. In order to accomplish this task, the device performs one or more functions. For example, a washing machine is designed to wash (task) and to accomplish this task it performs a start and stop function. Devices can be structured in categories (subclasses) that reflect the different domain in which a device is used, e.g., smart appliances domain (subclass FunctionRelated) vs. building domain (subclass BuildingRelated) vs. smart grid domain (subclass EnergyRelated). New categories can be defined,if needed, to reflect other differences, for example different points of view, such as the point of view of the device's user vs. the point of view of the device's manufacturer. We propose a list of devices that are relevant for the purpose of SAREF, but this list can be extended."@en ,
+                                                  "A tangible object designed to accomplish a particular task in households, common public buildings or offices. In order to accomplish this task, the device performs one or more functions. For example, a washing machine is designed to wash (task) and to accomplish this task it performs a start and stop function. Devices can be structured in categories (subclasses) that reflect the different domain in which a device is used, e.g., smart appliances domain (subclass FunctionRelated) vs. building domain (subclass BuildingRelated) vs. smart grid domain (subclass EnergyRelated). New categories can be defined,if needed, to reflect other differences, for example different points of view, such as the point of view of the device's user vs. the point of view of the device's manufacturer. We propose a list of devices that are relevant for the purpose of SAREF, but this list can be extended."^^xsd:string ,
+                                                  "A tangible object designed to accomplish a particular task. In order to accomplish this task, the device performs one or more functions. For example, a washing machine is designed to wash (task) and to accomplish this task it performs a start and stop function."@en ;
+                                     rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                     rdfs:label "Device"@en ,
+                                                "Device"^^xsd:string .
+
+
+###  https://saref.etsi.org/core/DoorSwitch
+<https://saref.etsi.org/core/DoorSwitch> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/core/Switch> ;
+                                         rdfs:comment "A switch that performs the saref:OpenCloseFunction, is used for controlling a door, and can be found in the state saref:OpenCloseState. A saref:DoorSwitch is typically used to accomplish saref:Safety."@en ;
+                                         rdfs:label "Door switch"@en .
+
+
+###  https://saref.etsi.org/core/Electricity
+<https://saref.etsi.org/core/Electricity> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/core/Commodity> ;
+                                          rdfs:comment "A type of commodity"@en ;
+                                          rdfs:label "Electricity"@en .
+
+
+###  https://saref.etsi.org/core/Energy
+<https://saref.etsi.org/core/Energy> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                     rdfs:comment "A saref:Property related to some measurements that are characterized by a certain value measured in an energy unit (such as Kilowatt_Hour or Watt_hour). Furter specializations of the saref:Energy class can be found in the SAREF4ENER extension, where classes such as EnergyMax, EnergyMin and EnergyExpected are defined. "@en ;
+                                     rdfs:label "Energy"@en .
+
+
+###  https://saref.etsi.org/core/EnergyUnit
+<https://saref.etsi.org/core/EnergyUnit> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/core/UnitOfMeasure> ;
+                                         rdfs:comment "The unit of measure for energy"@en ;
+                                         rdfs:label "Energy unit"@en .
+
+
+###  https://saref.etsi.org/core/EventFunction
+<https://saref.etsi.org/core/EventFunction> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/core/Function> ;
+                                            rdfs:comment "A function that allows to notify about some relevant activity; e.g., that a certain threshold value has been exceeded or that some object has moved."@en ;
+                                            rdfs:label "Event function"@en .
+
+
+###  https://saref.etsi.org/core/FeatureOfInterest
+<https://saref.etsi.org/core/FeatureOfInterest> rdf:type owl:Class ;
+                                                rdfs:comment "A feature of interest represents any real world entity from which a property is measured."@en ;
+                                                rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                                rdfs:label "Feature of interest"@en .
+
+
+###  https://saref.etsi.org/core/Function
+<https://saref.etsi.org/core/Function> rdf:type owl:Class ;
+                                       rdfs:comment "The functionality necessary to accomplish the task for which a device is designed. A device can be designed to perform more than one function. Functions can be structured in categories (subclasses) that reflect different points of view, for example, considering the specific application area for which a function can be used (e.g., light, temperature, motion, heat, power, etc.), or the capability that a function can support (e.g., receive, reply, notify, etc.), and so forth. "@en ;
+                                       rdfs:label "Function"@en .
+
+
+###  https://saref.etsi.org/core/Gas
+<https://saref.etsi.org/core/Gas> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://saref.etsi.org/core/Commodity> ;
+                                  rdfs:comment "A type of commodity"@en ;
+                                  rdfs:label "Gas"@en .
+
+
+###  https://saref.etsi.org/core/GetCommand
+<https://saref.etsi.org/core/GetCommand> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                         rdfs:comment "A type of command"@en ;
+                                         rdfs:label "Get command"@en .
+
+
+###  https://saref.etsi.org/core/GetCurrentMeterValueCommand
+<https://saref.etsi.org/core/GetCurrentMeterValueCommand> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <https://saref.etsi.org/core/GetCommand> ;
+                                                          rdfs:comment "A type of get command"@en ;
+                                                          rdfs:label "Get current meter value command"@en .
+
+
+###  https://saref.etsi.org/core/GetMeterDataCommand
+<https://saref.etsi.org/core/GetMeterDataCommand> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <https://saref.etsi.org/core/GetCommand> ;
+                                                  rdfs:comment "A type of get command"@en ;
+                                                  rdfs:label "Get meter data command"@en .
+
+
+###  https://saref.etsi.org/core/GetMeterHistoryCommand
+<https://saref.etsi.org/core/GetMeterHistoryCommand> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <https://saref.etsi.org/core/GetCommand> ;
+                                                     rdfs:comment "A type of get command"@en ;
+                                                     rdfs:label "Get meter history command"@en .
+
+
+###  https://saref.etsi.org/core/GetSensingDataCommand
+<https://saref.etsi.org/core/GetSensingDataCommand> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <https://saref.etsi.org/core/GetCommand> ;
+                                                    rdfs:comment "A type of get command"@en ;
+                                                    rdfs:label "Get sensing data command"@en .
+
+
+###  https://saref.etsi.org/core/HVAC
+<https://saref.etsi.org/core/HVAC> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://saref.etsi.org/core/Device> ;
+                                   rdfs:comment "Heating, Ventilation and Air Conditioning (HVAC) device that provides indoor environmental comfort. A saref:HVAC is typically used to accomplish saref:Comfort."@en ;
+                                   rdfs:label "HVAC"@en .
+
+
+###  https://saref.etsi.org/core/Humidity
+<https://saref.etsi.org/core/Humidity> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                       rdfs:comment "A saref:Property related to some measurements that are characterized by a certain value that is measured in a humidity unit"@en ;
+                                       rdfs:label "Humidity"@en .
+
+
+###  https://saref.etsi.org/core/IlluminanceUnit
+<https://saref.etsi.org/core/IlluminanceUnit> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://saref.etsi.org/core/UnitOfMeasure> ;
+                                              rdfs:comment "The unit of measure for light"@en ;
+                                              rdfs:label "Illuminance unit"@en .
+
+
+###  https://saref.etsi.org/core/LevelControlFunction
+<https://saref.etsi.org/core/LevelControlFunction> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <https://saref.etsi.org/core/ActuatingFunction> ;
+                                                   rdfs:comment "An actuating function that allows to do level adjustments of a property in a certain range (e.g., 0%-100%), such as dimming a light in a room or setting the speed of an electric motor. "@en ;
+                                                   rdfs:label "Level control function"@en .
+
+
+###  https://saref.etsi.org/core/Light
+<https://saref.etsi.org/core/Light> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                    rdfs:comment "A saref:Property related to some measurements that are characterized by a certain value that is measured in a illuminance unit (lux)"@en ;
+                                    rdfs:label "Light"@en .
+
+
+###  https://saref.etsi.org/core/LightSwitch
+<https://saref.etsi.org/core/LightSwitch> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/core/Switch> ;
+                                          rdfs:comment "A switch that performs the saref:OnOffFunction, controls the property saref:Light, and can be found in the state saref:OnOffState. It can offer a switch on service. A saref:LightSwitch is typically used to accomplish saref:Lighting."@en ;
+                                          rdfs:label "Light switch"@en .
+
+
+###  https://saref.etsi.org/core/Meter
+<https://saref.etsi.org/core/Meter> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://saref.etsi.org/core/Device> ,
+                                                    <https://saref.etsi.org/core/Sensor> ;
+                                    rdfs:comment "A device built to accurately detect and display a quantity in a form readable by a human being. Further, a device of category saref:Meter that performs a saref:MeteringFunction."@en ;
+                                    rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                    rdfs:label "Meter"@en .
+
+
+###  https://saref.etsi.org/core/MeteringFunction
+<https://saref.etsi.org/core/MeteringFunction> rdf:type owl:Class ;
+                                               rdfs:subClassOf <https://saref.etsi.org/core/Function> ;
+                                               rdfs:comment "A function that allows to get data from a meter, such as current meter reading or instantaneous demand"@en ;
+                                               rdfs:label "Metering function"@en .
+
+
+###  https://saref.etsi.org/core/Motion
+<https://saref.etsi.org/core/Motion> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                     rdfs:comment "A saref:Property related to some measurements that are characterized by a certain value that is measured in a unit of measure for motion"@en ;
+                                     rdfs:label "Motion"@en .
+
+
+###  https://saref.etsi.org/core/MultiLevelState
+<https://saref.etsi.org/core/MultiLevelState> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://saref.etsi.org/core/State> ;
+                                              rdfs:comment "A type of state"@en ;
+                                              rdfs:label "Multi level state"@en .
+
+
+###  https://saref.etsi.org/core/NotifyCommand
+<https://saref.etsi.org/core/NotifyCommand> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                            rdfs:comment "A type of command"@en ;
+                                            rdfs:label "Notify command"@en .
+
+
+###  https://saref.etsi.org/core/Occupancy
+<https://saref.etsi.org/core/Occupancy> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                        rdfs:comment "A saref:Property related to some measurements that are characterized by a certain value (saref:hasValue property) that is measured in a unit of measure for occupancy"@en ;
+                                        rdfs:label "Occupancy"@en .
+
+
+###  https://saref.etsi.org/core/OffCommand
+<https://saref.etsi.org/core/OffCommand> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                         rdfs:comment "A type of command"@en ;
+                                         rdfs:label "Off command"@en .
+
+
+###  https://saref.etsi.org/core/OffState
+<https://saref.etsi.org/core/OffState> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://saref.etsi.org/core/OnOffState> ;
+                                       rdfs:comment "The state of a device that is Off"@en ;
+                                       rdfs:label "Off state"@en .
+
+
+###  https://saref.etsi.org/core/OnCommand
+<https://saref.etsi.org/core/OnCommand> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                        rdfs:comment "A type of command"@en ;
+                                        rdfs:label "On command"@en .
+
+
+###  https://saref.etsi.org/core/OnOffFunction
+<https://saref.etsi.org/core/OnOffFunction> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/core/ActuatingFunction> ;
+                                            rdfs:comment "An actuating function that allows to switch on and off an actuator"@en ;
+                                            rdfs:label "On off function"@en .
+
+
+###  https://saref.etsi.org/core/OnOffState
+<https://saref.etsi.org/core/OnOffState> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/core/State> ;
+                                         rdfs:comment "A type of state"@en ;
+                                         rdfs:label "On off state"@en .
+
+
+###  https://saref.etsi.org/core/OnState
+<https://saref.etsi.org/core/OnState> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://saref.etsi.org/core/OnOffState> ;
+                                      rdfs:comment "The state of a device that is On"@en ;
+                                      rdfs:label "On state"@en .
+
+
+###  https://saref.etsi.org/core/OpenCloseFunction
+<https://saref.etsi.org/core/OpenCloseFunction> rdf:type owl:Class ;
+                                                rdfs:subClassOf <https://saref.etsi.org/core/ActuatingFunction> ;
+                                                rdfs:comment "An actuating function that allows to open and close a device"@en ;
+                                                rdfs:label "Open close function"@en .
+
+
+###  https://saref.etsi.org/core/OpenCloseState
+<https://saref.etsi.org/core/OpenCloseState> rdf:type owl:Class ;
+                                             rdfs:subClassOf <https://saref.etsi.org/core/State> ;
+                                             rdfs:comment "A type of state"@en ;
+                                             rdfs:label "Open close state"@en .
+
+
+###  https://saref.etsi.org/core/OpenCommand
+<https://saref.etsi.org/core/OpenCommand> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                          rdfs:comment "A type of command"@en ;
+                                          rdfs:label "Open command"@en .
+
+
+###  https://saref.etsi.org/core/OpenState
+<https://saref.etsi.org/core/OpenState> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://saref.etsi.org/core/OpenCloseState> ;
+                                        rdfs:comment "The state of a device that is OPEN "@en ;
+                                        rdfs:label "Open state"@en .
+
+
+###  https://saref.etsi.org/core/PauseCommand
+<https://saref.etsi.org/core/PauseCommand> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                           rdfs:comment "A type of command"@en ;
+                                           rdfs:label "Pause command"@en .
+
+
+###  https://saref.etsi.org/core/Power
+<https://saref.etsi.org/core/Power> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                    rdfs:comment "A saref:Property related to some measurements that are characterized by a certain value that is measured in a power unit (such as watt or kilowatt).  Further specializations of the saref:Power class can be found in the SAREF4ENER extension, where classes such as PowerMax, PowerMin and PowerExpected are defined."@en ;
+                                    rdfs:label "Power"@en .
+
+
+###  https://saref.etsi.org/core/PowerUnit
+<https://saref.etsi.org/core/PowerUnit> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://saref.etsi.org/core/UnitOfMeasure> ;
+                                        rdfs:comment "The unit of measure for power"@en ;
+                                        rdfs:label "Power unit"@en .
+
+
+###  https://saref.etsi.org/core/Pressure
+<https://saref.etsi.org/core/Pressure> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                       rdfs:comment "A saref:Property related to some measurements that are characterized by a certain value that is measured in a pressure unit (bar or pascal)"@en ;
+                                       rdfs:label "Pressure"@en .
+
+
+###  https://saref.etsi.org/core/PressureUnit
+<https://saref.etsi.org/core/PressureUnit> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://saref.etsi.org/core/UnitOfMeasure> ;
+                                           rdfs:comment "The unit of measure for pressure"@en ;
+                                           rdfs:label "Pressure unit"@en .
+
+
+###  https://saref.etsi.org/core/Price
+<https://saref.etsi.org/core/Price> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                    rdfs:comment "A saref:Property crelated to some measurements that are characterized by a certain value that is measured using saref:Currency"@en ;
+                                    rdfs:label "Price"@en .
+
+
+###  https://saref.etsi.org/core/Property
+<https://saref.etsi.org/core/Property> rdf:type owl:Class ;
+                                       rdfs:comment "A quality of a feature of interest that can be measured; an aspect of a feature of interest that is intrinsic to and cannot exist without the feature"@en ,
+                                                    "An aspect of an entity that can be observable by a sensor."@en ,
+                                                    "Anything that can be sensed, measured or controlled in households, common public buildings or offices. We propose here a list of properties that are relevant for the purpose of SAREF, but this list can be extended."^^xsd:string ;
+                                       rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                       rdfs:label "Property"@en .
+
+
+###  https://saref.etsi.org/core/SensingFunction
+<https://saref.etsi.org/core/SensingFunction> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://saref.etsi.org/core/Function> ;
+                                              rdfs:comment "A function that allows to transmit data from sensors, such as measurement values (e.g., temperature) or sensing data (e.g., occupancy)"@en ;
+                                              rdfs:label "Sensing function"@en .
+
+
+###  https://saref.etsi.org/core/Sensor
+<https://saref.etsi.org/core/Sensor> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://saref.etsi.org/core/Device> ;
+                                     rdfs:comment """A device that detects and responds to events or changes in the physical environment such as light, motion, or temperature changes.
+A device that has category saref:Sensor and performs a saref:SensingFunction."""@en ,
+                                                  "A device that detects and responds to events or changes in the physical environment such as light, motion, or temperature changes. A device that has category saref:Sensor and performs a saref:SensingFunction."@en ,
+                                                  "A device that detects and responds to events or changes in the physical environment such as light, motion, or temperature changes. Further, a device of category saref:Sensor that performs a saref:SensingFunction."@en ;
+                                     rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                     rdfs:label "Sensor"@en .
+
+
+###  https://saref.etsi.org/core/Service
+<https://saref.etsi.org/core/Service> rdf:type owl:Class ;
+                                      rdfs:comment "A service is a representation of a function to a network that makes the function discoverable, registerable, remotely controllable by other devices in the network. A service can represent one or more functions. A Service is offered by a device that wants (a certain set of) its function(s) to be discoverable, registerable, remotely controllable by other devices in the network. A Service must specify the device that is offering the service and the function(s) to be represented."@en ;
+                                      rdfs:label "Service"@en .
+
+
+###  https://saref.etsi.org/core/SetAbsoluteLevelCommand
+<https://saref.etsi.org/core/SetAbsoluteLevelCommand> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <https://saref.etsi.org/core/SetLevelCommand> ;
+                                                      rdfs:comment "A type of set level command"@en ;
+                                                      rdfs:label "Set absolute level command"@en .
+
+
+###  https://saref.etsi.org/core/SetLevelCommand
+<https://saref.etsi.org/core/SetLevelCommand> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                              rdfs:comment "A type of command"@en ;
+                                              rdfs:label "Set level command"@en .
+
+
+###  https://saref.etsi.org/core/SetRelativeLevelCommand
+<https://saref.etsi.org/core/SetRelativeLevelCommand> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <https://saref.etsi.org/core/SetLevelCommand> ;
+                                                      rdfs:comment "A type of set level command"@en ;
+                                                      rdfs:label "Set relative level command"@en .
+
+
+###  https://saref.etsi.org/core/Smoke
+<https://saref.etsi.org/core/Smoke> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                    rdfs:comment "A saref:Property related to some measurements that are characterized by a certain value that is measured in a unit of measure for smoke"@en ;
+                                    rdfs:label "Smoke"@en .
+
+
+###  https://saref.etsi.org/core/SmokeSensor
+<https://saref.etsi.org/core/SmokeSensor> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/core/Sensor> ;
+                                          rdfs:comment "A sensor that performs the saref:SensingFunction and the saref:EventFunction, and is used for the purpose of sensing a property of type saref:Smoke. A saref:SmokeSensor is typically used to saref:accomplish saref:Safety."@en ;
+                                          rdfs:label "Smoke sensor"@en .
+
+
+###  https://saref.etsi.org/core/StartCommand
+<https://saref.etsi.org/core/StartCommand> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                           rdfs:comment "A type of command"@en ;
+                                           rdfs:label "Start command"@en .
+
+
+###  https://saref.etsi.org/core/StartState
+<https://saref.etsi.org/core/StartState> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/core/StartStopState> ;
+                                         rdfs:comment "The state of a device that is STARTED"@en ;
+                                         rdfs:label "Start state"@en .
+
+
+###  https://saref.etsi.org/core/StartStopFunction
+<https://saref.etsi.org/core/StartStopFunction> rdf:type owl:Class ;
+                                                rdfs:subClassOf <https://saref.etsi.org/core/ActuatingFunction> ;
+                                                rdfs:comment "An actuating function that allows to start and stop a device"@en ;
+                                                rdfs:label "Start stop function"@en .
+
+
+###  https://saref.etsi.org/core/StartStopState
+<https://saref.etsi.org/core/StartStopState> rdf:type owl:Class ;
+                                             rdfs:subClassOf <https://saref.etsi.org/core/State> ;
+                                             rdfs:comment "A type of state"@en ;
+                                             rdfs:label "Start stop state"@en .
+
+
+###  https://saref.etsi.org/core/State
+<https://saref.etsi.org/core/State> rdf:type owl:Class ;
+                                    rdfs:comment "The state in which a device can be found, e.g, ON/OFF/STANDBY, or ONLINE/OFFLINE. We propose here a list of states that are relevant for the purpose of SAREF, but this list can be extended."@en ;
+                                    rdfs:label "State"@en .
+
+
+###  https://saref.etsi.org/core/StepDownCommand
+<https://saref.etsi.org/core/StepDownCommand> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                              rdfs:comment "A type of command"@en ;
+                                              rdfs:label "Step down command"@en .
+
+
+###  https://saref.etsi.org/core/StepUpCommand
+<https://saref.etsi.org/core/StepUpCommand> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                            rdfs:comment "A type of command"@en ;
+                                            rdfs:label "Step up command"@en .
+
+
+###  https://saref.etsi.org/core/StopCommand
+<https://saref.etsi.org/core/StopCommand> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                          rdfs:comment "A type of command"@en ;
+                                          rdfs:label "Stop command"@en .
+
+
+###  https://saref.etsi.org/core/StopState
+<https://saref.etsi.org/core/StopState> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://saref.etsi.org/core/StartStopState> ;
+                                        rdfs:comment "The state of a device that is STOPPED"@en ;
+                                        rdfs:label "Stop state"@en .
+
+
+###  https://saref.etsi.org/core/Switch
+<https://saref.etsi.org/core/Switch> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://saref.etsi.org/core/Actuator> ;
+                                     rdfs:comment "A device of category saref:Actuator that performs an actuating function of type saref:OnOffFunction or saref:OpenCloseFunction"@en ;
+                                     rdfs:label "Switch"@en .
+
+
+###  https://saref.etsi.org/core/SwitchOnService
+<https://saref.etsi.org/core/SwitchOnService> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://saref.etsi.org/core/Service> ;
+                                              rdfs:comment "A type of service that represents an on/off function to the network"@en ;
+                                              rdfs:label "Switch on service"@en .
+
+
+###  https://saref.etsi.org/core/Temperature
+<https://saref.etsi.org/core/Temperature> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                          rdfs:comment "A saref:Property related to some measurements that are characterized by a certain value that is measured in a temperature unit (degree_Celsius, degree_Fahrenheit, or degree_kelvin)"@en ;
+                                          rdfs:label "Temperature"@en .
+
+
+###  https://saref.etsi.org/core/TemperatureSensor
+<https://saref.etsi.org/core/TemperatureSensor> rdf:type owl:Class ;
+                                                rdfs:subClassOf <https://saref.etsi.org/core/Sensor> ;
+                                                rdfs:comment "A sensor that is used for the purpose of sensing a property of type saref:Temperature. A saref:TemperatureSensor is typically used to saref:accomplish saref:Comfort."@en ;
+                                                rdfs:label "Temperature sensor"@en .
+
+
+###  https://saref.etsi.org/core/TemperatureUnit
+<https://saref.etsi.org/core/TemperatureUnit> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://saref.etsi.org/core/UnitOfMeasure> ;
+                                              rdfs:comment "The unit of measure for temperature"@en ;
+                                              rdfs:label "Temperature unit"@en .
+
+
+###  https://saref.etsi.org/core/ToggleCommand
+<https://saref.etsi.org/core/ToggleCommand> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/core/Command> ;
+                                            rdfs:comment "A type of command"@en ;
+                                            rdfs:label "Toggle command"@en .
+
+
+###  https://saref.etsi.org/core/UnitOfMeasure
+<https://saref.etsi.org/core/UnitOfMeasure> rdf:type owl:Class ;
+                                            rdfs:comment "The unit of measure is a standard for measurement of a quantity, such as a Property. For example,  Power is a property and Watt is a unit of power that represents a definite predetermined power: when we say 10 Watt, we actually mean 10 times the definite predetermined power called \"watt\". Our definition is based on the definition of unit of measure in the Ontology of units of Measure (OM). We propose here a list of some units of measure that are relevant for the purpose of SAREF, but this list can be extended, also using some other ontologies rather than the Ontology of units of Measure (OM)."@en ,
+                                                         "The unit of measure is a standard for measurement of a quantity, such as a Property. For example,  Power is a property and Watt is a unit of power that represents a definite predetermined power: when we say 10 Watt, we actually mean 10 times the definite predetermined power called \"watt\". Our definition is based on the definition of unit of measure in the Ontology of units of Measure (OM). We propose here a list of some units of measure that are relevant for the purpose of the Smart Appliances ontology, but this list can be extended."@en ,
+                                                         "The unit of measure is a standard for measurement of a quantity, such as a Property. For example, Power is a property and Watt is a unit of power that represents a definite predetermined power: when we say 10 Watt, we actually mean 10 times the definite predetermined power called \"watt\". Our definition is based on the definition of unit of measure in the Ontology of units of Measure (OM). We propose here a list of some units of measure that are relevant for the purpose of the Smart Appliances ontology, but this list can be extended."@en ;
+                                            rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                            rdfs:label "Unit of measure"@en .
+
+
+###  https://saref.etsi.org/core/Water
+<https://saref.etsi.org/core/Water> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://saref.etsi.org/core/Commodity> ;
+                                    rdfs:comment "A type of commodity"@en ;
+                                    rdfs:label "Water"@en .
+
+
+###  https://saref.etsi.org/saref4city/AdministrativeArea
+<https://saref.etsi.org/saref4city/AdministrativeArea> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ;
+                                                       rdfs:comment "An administrative division, unit, entity, area or region, also referred to as a subnational entity, constituent unit, or country subdivision, is a portion of a country or other region delineated for the purpose of administration. (https://en.wikipedia.org/wiki/Administrative_division)"@en ;
+                                                       rdfs:label "Administrative area"@en .
+
+
+###  https://saref.etsi.org/saref4city/Agent
+<https://saref.etsi.org/saref4city/Agent> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://xmlns.com/foaf/0.1/Agent> ;
+                                          rdfs:comment "An agent making an action in the context of a city. An agent could be a person, software, etc."@en ;
+                                          rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                          rdfs:label "Agent"@en .
+
+
+###  https://saref.etsi.org/saref4city/City
+<https://saref.etsi.org/saref4city/City> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/saref4city/AdministrativeArea> ;
+                                         rdfs:comment "A city is a large human settlement. A city is distinguished from other human settlements by its relatively great size, but also by its functions and its special symbolic status, which may be conferred by a central authority. (https://en.wikipedia.org/wiki/City)"@en ;
+                                         rdfs:label "City"@en .
+
+
+###  https://saref.etsi.org/saref4city/CityObject
+<https://saref.etsi.org/saref4city/CityObject> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ;
+                                               rdfs:comment "Generic class for describing city objects."@en ;
+                                               rdfs:label "City object"@en .
+
+
+###  https://saref.etsi.org/saref4city/Country
+<https://saref.etsi.org/saref4city/Country> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/saref4city/AdministrativeArea> ;
+                                            rdfs:comment "A country is a region that is identified as a distinct national entity in political geography. (https://en.wikipedia.org/wiki/Country)"@en ;
+                                            rdfs:label "Country"@en .
+
+
+###  https://saref.etsi.org/saref4city/District
+<https://saref.etsi.org/saref4city/District> rdf:type owl:Class ;
+                                             rdfs:subClassOf <https://saref.etsi.org/saref4city/AdministrativeArea> ;
+                                             rdfs:comment "A district is a type of administrative division that, in some countries, is managed by local government. Across the world, areas known as \"districts\" vary greatly in size, spanning regions or counties, several municipalities, subdivisions of municipalities, school district, or political district. (https://en.wikipedia.org/wiki/District)"@en ;
+                                             rdfs:label "District"@en .
+
+
+###  https://saref.etsi.org/saref4city/Facility
+<https://saref.etsi.org/saref4city/Facility> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ;
+                                             rdfs:comment "A place, amenity, or piece of equipment provided for a particular purpose. (Definition taken from https://en.oxforddictionaries.com/definition/facility)"@en ;
+                                             rdfs:label "Facility"@en .
+
+
+###  https://saref.etsi.org/saref4city/Neighbourhood
+<https://saref.etsi.org/saref4city/Neighbourhood> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <https://saref.etsi.org/saref4city/AdministrativeArea> ;
+                                                  rdfs:comment "A neighbourhood (British English), or neighborhood (American English; see spelling differences), is a geographically localised community within a larger city, town, suburb or rural area. (https://en.wikipedia.org/wiki/Neighbourhood)"@en ;
+                                                  rdfs:label "Neighbourhood"@en .
+
+
+###  https://saref.etsi.org/saref4city/PublicAdministration
+<https://saref.etsi.org/saref4city/PublicAdministration> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.w3.org/ns/org#Organization> ;
+                                                         rdfs:comment "Public leadership of public affairs directly responsible for executive action. (Definition taken from wikidata)"@en ;
+                                                         rdfs:label "Public administration"@en ;
+                                                         rdfs:seeAlso <https://www.wikidata.org/wiki/Q31728> .
+
+
+###  https://saref.etsi.org/saref4city/PublicService
+<https://saref.etsi.org/saref4city/PublicService> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://purl.org/vocab/cpsv#PublicService> ;
+                                                  rdfs:comment "Public service is a service which is provided by government either directly (through the public sector) or by financing provision of services. (Definition taken from Wikipedia)"@en ;
+                                                  rdfs:label "Public service"@en ;
+                                                  rdfs:seeAlso <https://en.wikipedia.org/wiki/Public_service> .
+
+
+###  https://saref.etsi.org/saref4syst/System
+<https://saref.etsi.org/saref4syst/System> rdf:type owl:Class ;
+                                           rdfs:isDefinedBy <https://saref.etsi.org/saref4syst/> ;
+                                           rdfs:label "System"@en .
+
+
+###  https://saref.etsi.org/saref4watr/AcceptabilityProperty
+<https://saref.etsi.org/saref4watr/AcceptabilityProperty> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <https://saref.etsi.org/saref4watr/WaterProperty> ;
+                                                          rdfs:comment "An acceptability property is a property of water that is related to its acceptability."@en ;
+                                                          rdfs:label "Acceptability property"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Aquifer
+<https://saref.etsi.org/saref4watr/Aquifer> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/saref4watr/StorageAsset> ;
+                                            rdfs:comment "An aquifer is an underground layer of water-bearing permeable rock, rock fractures or unconsolidated materials."@en ;
+                                            rdfs:label "Aquifer"@en .
+
+
+###  https://saref.etsi.org/saref4watr/BacterialProperty
+<https://saref.etsi.org/saref4watr/BacterialProperty> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <https://saref.etsi.org/saref4watr/MicrobialProperty> ;
+                                                      rdfs:comment "A bacterial property is a property of water that is related to bacteria."@en ;
+                                                      rdfs:label "Bacterial property"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Channel
+<https://saref.etsi.org/saref4watr/Channel> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/saref4watr/Main> ;
+                                            rdfs:comment "A channel is a passage of water flowing in an open conduit (i.e., subject to atmospheric pressure)."@en ;
+                                            rdfs:label "Channel"@en .
+
+
+###  https://saref.etsi.org/saref4watr/ChemicalProperty
+<https://saref.etsi.org/saref4watr/ChemicalProperty> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <https://saref.etsi.org/saref4watr/WaterProperty> ;
+                                                     rdfs:comment "A chemical property is a property of water that is related to chemical components."@en ;
+                                                     rdfs:label "ChemicalProperty"@en .
+
+
+###  https://saref.etsi.org/saref4watr/ConsumptionBasedTariff
+<https://saref.etsi.org/saref4watr/ConsumptionBasedTariff> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <https://saref.etsi.org/saref4watr/Tariff> ;
+                                                           rdfs:comment "A consumption-based tariff is a tariff that is based on consumption."@en ;
+                                                           rdfs:label "Consumption-based tariff"@en .
+
+
+###  https://saref.etsi.org/saref4watr/DistributionSystem
+<https://saref.etsi.org/saref4watr/DistributionSystem> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <https://saref.etsi.org/saref4watr/WaterInfrastructure> ;
+                                                       rdfs:comment "A water distribution system is an infrastructure to carry potable water from a centralized treatment plant or wells to water consumers in order to adequately deliver water to satisfy residential, commercial, industrial and fire fighting requirements."@en ;
+                                                       rdfs:label "Distribution system"@en .
+
+
+###  https://saref.etsi.org/saref4watr/EnvironmentalProperty
+<https://saref.etsi.org/saref4watr/EnvironmentalProperty> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                                          rdfs:comment "Class to group those properties related to the environment."@en ;
+                                                          rdfs:label "Environmental property"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Estuary
+<https://saref.etsi.org/saref4watr/Estuary> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/saref4watr/SinkAsset> ;
+                                            rdfs:comment "An estuary is a partially enclosed coastal body of brackish water with one or more rivers or streams flowing into it, and with a free connection to the open sea."@en ;
+                                            rdfs:label "Estuary"@en .
+
+
+###  https://saref.etsi.org/saref4watr/FireHydrant
+<https://saref.etsi.org/saref4watr/FireHydrant> rdf:type owl:Class ;
+                                                rdfs:subClassOf <https://saref.etsi.org/saref4watr/WaterDevice> ;
+                                                rdfs:comment "A fire hydrant is a fitting in a street or other public place with a nozzle by which a fire hose may be attached to a water main."@en ;
+                                                rdfs:label "Fire hydrant"@en .
+
+
+###  https://saref.etsi.org/saref4watr/GaugingStation
+<https://saref.etsi.org/saref4watr/GaugingStation> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <https://saref.etsi.org/saref4watr/MonitoringInfrastructure> ;
+                                                   rdfs:comment "A gauging station is an infrastructure to monitor and test terrestrial bodies of water."@en ;
+                                                   rdfs:label "Gauging station"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Glacier
+<https://saref.etsi.org/saref4watr/Glacier> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/saref4watr/SourceAsset> ;
+                                            rdfs:comment "A glacier is a persistent body of dense ice that is constantly moving under its own weight."@en ;
+                                            rdfs:label "Glacier"@en .
+
+
+###  https://saref.etsi.org/saref4watr/HydroelectricPowerPlant
+<https://saref.etsi.org/saref4watr/HydroelectricPowerPlant> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <https://saref.etsi.org/saref4watr/WaterInfrastructure> ;
+                                                            rdfs:comment "A hydroelectric power plant is an infrastructure to generate electricity by conversion of the energy of running water."@en ;
+                                                            rdfs:label "Hydroelectric power plant"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Intake
+<https://saref.etsi.org/saref4watr/Intake> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://saref.etsi.org/saref4watr/TransportAsset> ;
+                                           rdfs:comment "An intake is an installation for obtaining water from a source of supply (river, lake, reservoir, and so on)."@en ;
+                                           rdfs:label "Intake"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Lagoon
+<https://saref.etsi.org/saref4watr/Lagoon> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://saref.etsi.org/saref4watr/SourceAsset> ;
+                                           rdfs:comment "A lagoon is a shallow body of water separated from a larger body of water by barrier islands or reefs."@en ;
+                                           rdfs:label "Lagoon"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Lake
+<https://saref.etsi.org/saref4watr/Lake> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/saref4watr/SourceAsset> ;
+                                         rdfs:comment "A lake is an area filled with water, localized in a basin, surrounded by land, apart from any river or other outlet that serves to feed or drain the lake."@en ;
+                                         rdfs:label "Lake"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Main
+<https://saref.etsi.org/saref4watr/Main> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/saref4watr/TransportAsset> ;
+                                         rdfs:comment "A main is a passage of water to flow through."@en ;
+                                         rdfs:label "Main"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Manhole
+<https://saref.etsi.org/saref4watr/Manhole> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://saref.etsi.org/saref4watr/TransportAsset> ;
+                                            rdfs:comment "A maintenance hole is an enclosure that facilitates human access to and working space for equipment."@en ;
+                                            rdfs:label "Maintenance hole"@en ,
+                                                       "Manhole"@en .
+
+
+###  https://saref.etsi.org/saref4watr/MicrobialProperty
+<https://saref.etsi.org/saref4watr/MicrobialProperty> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <https://saref.etsi.org/saref4watr/WaterProperty> ;
+                                                      rdfs:comment "A microbial property is a property of water that is related to microbes."@en ;
+                                                      rdfs:label "Microbial property"@en .
+
+
+###  https://saref.etsi.org/saref4watr/MonitoringInfrastructure
+<https://saref.etsi.org/saref4watr/MonitoringInfrastructure> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <https://saref.etsi.org/saref4watr/WaterInfrastructure> ;
+                                                             rdfs:comment "A monitoring infrastructure is an infrastructure to monitor water."@en ;
+                                                             rdfs:label "Monitoring infrastructure"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Ocean
+<https://saref.etsi.org/saref4watr/Ocean> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/saref4watr/SinkAsset> ;
+                                          rdfs:comment "An ocean is a large body of salt water."@en ;
+                                          rdfs:label "Ocean"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Pipe
+<https://saref.etsi.org/saref4watr/Pipe> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#PhysicalComponent> ,
+                                                         <https://saref.etsi.org/saref4watr/Main> ,
+                                                         <https://saref.etsi.org/saref4watr/WaterAsset> ;
+                                         rdfs:comment "A pipe is a passage of water flowing in a closed conduit (i.e., not subject to atmospheric pressure)."@en ;
+                                         rdfs:label "Pipe"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Pit
+<https://saref.etsi.org/saref4watr/Pit> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://saref.etsi.org/saref4watr/TransportAsset> ;
+                                        rdfs:comment "A pit is a well or hole sunk in the ground to procure, store or drain water."@en ;
+                                        rdfs:label "Pit"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Pump
+<https://saref.etsi.org/saref4watr/Pump> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/core/Actuator> ,
+                                                         <https://saref.etsi.org/saref4watr/WaterDevice> ;
+                                         rdfs:comment "A pump is a device for moving water by mechanical action."@en ;
+                                         rdfs:label "Pump"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Reservoir
+<https://saref.etsi.org/saref4watr/Reservoir> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://saref.etsi.org/saref4watr/StorageAsset> ;
+                                              rdfs:comment "A reservoir is an enlarged natural or artificial lake, pond or impoundment created using a dam or lock to store water."@en ;
+                                              rdfs:label "Reservoir"@en .
+
+
+###  https://saref.etsi.org/saref4watr/River
+<https://saref.etsi.org/saref4watr/River> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/saref4watr/SinkAsset> ;
+                                          rdfs:comment "A river is a natural flowing watercourse, usually freshwater, flowing towards an ocean, sea, lake or another river."@en ;
+                                          rdfs:label "River"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Sea
+<https://saref.etsi.org/saref4watr/Sea> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://saref.etsi.org/saref4watr/SinkAsset> ;
+                                        rdfs:comment "A sea is a body of salt water partly or fully enclosed by land."@en ;
+                                        rdfs:label "Sea"@en .
+
+
+###  https://saref.etsi.org/saref4watr/SinkAsset
+<https://saref.etsi.org/saref4watr/SinkAsset> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#PhysicalComponent> ,
+                                                              <https://saref.etsi.org/saref4watr/WaterAsset> ;
+                                              rdfs:comment "A sink asset is a water asset where water sinks."@en ;
+                                              rdfs:label "Sink asset"@en .
+
+
+###  https://saref.etsi.org/saref4watr/SourceAsset
+<https://saref.etsi.org/saref4watr/SourceAsset> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#PhysicalComponent> ,
+                                                                <https://saref.etsi.org/saref4watr/WaterAsset> ;
+                                                rdfs:comment "A source asset is a water asset that is a natural source of water."@en ;
+                                                rdfs:label "Source asset"@en .
+
+
+###  https://saref.etsi.org/saref4watr/StorageAsset
+<https://saref.etsi.org/saref4watr/StorageAsset> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#PhysicalComponent> ,
+                                                                 <https://saref.etsi.org/saref4watr/WaterAsset> ;
+                                                 rdfs:comment "A storage asset is a water asset used to store water."@en ;
+                                                 rdfs:label "Storage asset"@en .
+
+
+###  https://saref.etsi.org/saref4watr/StorageInfrastructure
+<https://saref.etsi.org/saref4watr/StorageInfrastructure> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <https://saref.etsi.org/saref4watr/WaterInfrastructure> ;
+                                                          rdfs:comment "An storage infrastructure is an infrastructure to storage both potable water for consumption, and non potable water for use in agriculture."@en ;
+                                                          rdfs:label "Storage infrastructure"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Tank
+<https://saref.etsi.org/saref4watr/Tank> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/saref4watr/StorageAsset> ;
+                                         rdfs:comment "A tank is a container for storing water."@en ;
+                                         rdfs:label "Tank"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Tariff
+<https://saref.etsi.org/saref4watr/Tariff> rdf:type owl:Class ;
+                                           rdfs:comment "A tariff is a schedule of rates or charges of a business or a public utility. Tariffs can be based on time, thresholds or consumption; however, combined tariffs may also exist that mix more than one of these types."@en ;
+                                           rdfs:label "Tariff"@en .
+
+
+###  https://saref.etsi.org/saref4watr/ThresholdBasedTariff
+<https://saref.etsi.org/saref4watr/ThresholdBasedTariff> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://saref.etsi.org/saref4watr/Tariff> ;
+                                                         rdfs:comment "A threshold-based tariff is a tariff that is based on a threshold."@en ;
+                                                         rdfs:label "Threshold-based tariff"@en .
+
+
+###  https://saref.etsi.org/saref4watr/TimeBasedTariff
+<https://saref.etsi.org/saref4watr/TimeBasedTariff> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <https://saref.etsi.org/saref4watr/Tariff> ;
+                                                    rdfs:comment "A time-based tariff is a tariff that is based on time."@en ;
+                                                    rdfs:label "Time-based tariff"@en .
+
+
+###  https://saref.etsi.org/saref4watr/TransportAsset
+<https://saref.etsi.org/saref4watr/TransportAsset> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#PhysicalComponent> ,
+                                                                   <https://saref.etsi.org/saref4watr/WaterAsset> ;
+                                                   rdfs:comment "A transport asset is a water asset used to enable and support the transport and distribution of water."@en ;
+                                                   rdfs:label "Transport asset"@en .
+
+
+###  https://saref.etsi.org/saref4watr/TreatmentPlant
+<https://saref.etsi.org/saref4watr/TreatmentPlant> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <https://saref.etsi.org/saref4watr/WaterInfrastructure> ;
+                                                   rdfs:comment "A treatment plant is an infrastructure to improve the quality of water to make it more acceptable for a specific end-use."@en ;
+                                                   rdfs:label "Treatment plant"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Valve
+<https://saref.etsi.org/saref4watr/Valve> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/core/Actuator> ,
+                                                          <https://saref.etsi.org/saref4watr/WaterDevice> ;
+                                          rdfs:comment "A valve is a device designed to control water flow, pressure or volume."@en ;
+                                          rdfs:label "Valve"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Vent
+<https://saref.etsi.org/saref4watr/Vent> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://saref.etsi.org/saref4watr/TransportAsset> ;
+                                         rdfs:comment "A vent is the part of a system that allows air to enter a plumbing system to maintain proper air pressure and sewer gases to escape to the outside."@en ;
+                                         rdfs:label "Vent"@en .
+
+
+###  https://saref.etsi.org/saref4watr/Water
+<https://saref.etsi.org/saref4watr/Water> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/core/FeatureOfInterest> ;
+                                          rdfs:comment "This class is used to define a particular quantity or body of water."@en ;
+                                          rdfs:label "Water"@en .
+
+
+###  https://saref.etsi.org/saref4watr/WaterAsset
+<https://saref.etsi.org/saref4watr/WaterAsset> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ,
+                                                               <https://saref.etsi.org/core/FeatureOfInterest> ,
+                                                               <https://saref.etsi.org/saref4syst/System> ;
+                                               rdfs:comment "A water asset is a physical entity used in the process of transporting, treating, storing and distributing water."@en ;
+                                               rdfs:label "Water asset"@en .
+
+
+###  https://saref.etsi.org/saref4watr/WaterDevice
+<https://saref.etsi.org/saref4watr/WaterDevice> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.semanticweb.org/malikluti/ontologies/swade#PhysicalComponent> ,
+                                                                <https://saref.etsi.org/core/Device> ,
+                                                                <https://saref.etsi.org/saref4watr/WaterAsset> ;
+                                                rdfs:comment "A water device is a device that is also a water asset."@en ;
+                                                rdfs:label "Water device"@en .
+
+
+###  https://saref.etsi.org/saref4watr/WaterFlowProperty
+<https://saref.etsi.org/saref4watr/WaterFlowProperty> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                                      rdfs:comment "Class to group those properties related to water flow."@en ;
+                                                      rdfs:label "Water flow property"@en .
+
+
+###  https://saref.etsi.org/saref4watr/WaterInfrastructure
+<https://saref.etsi.org/saref4watr/WaterInfrastructure> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ,
+                                                                        <https://saref.etsi.org/core/FeatureOfInterest> ,
+                                                                        <https://saref.etsi.org/saref4syst/System> ;
+                                                        rdfs:comment "A water infrastructure is the set of facilities, services, and installations needed for water management."@en ;
+                                                        rdfs:label "Water infrastructure"@en .
+
+
+###  https://saref.etsi.org/saref4watr/WaterMeter
+<https://saref.etsi.org/saref4watr/WaterMeter> rdf:type owl:Class ;
+                                               rdfs:subClassOf <https://saref.etsi.org/core/Meter> ,
+                                                               <https://saref.etsi.org/saref4watr/WaterDevice> ;
+                                               rdfs:comment "A water meter is an instrument intended to measure continuously, memorize, and display the volume of water passing through the meter."@en ;
+                                               rdfs:label "Water meter"@en .
+
+
+###  https://saref.etsi.org/saref4watr/WaterMeterProperty
+<https://saref.etsi.org/saref4watr/WaterMeterProperty> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                                       rdfs:comment "Class to group those properties related to water meters."@en ;
+                                                       rdfs:label "Water meter property"@en .
+
+
+###  https://saref.etsi.org/saref4watr/WaterProperty
+<https://saref.etsi.org/saref4watr/WaterProperty> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <https://saref.etsi.org/core/Property> ;
+                                                  rdfs:comment "Class to group those properties related to the water."@en ;
+                                                  rdfs:label "Water property"@en .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+<http://purl.org/vocab/cpsv#physicallyAvailableAt> rdfs:comment "A physical location at which a user may interact with the Public Service."@en ;
+                                                   rdfs:isDefinedBy <http://purl.org/vocab/cpsv#> ;
+                                                   rdfs:label "physically available at"@en .
+
+
+<http://purl.org/vocab/cpsv#provides> rdfs:isDefinedBy <http://purl.org/vocab/cpsv#> ;
+                                      rdfs:label "provides"@en ;
+                                      rdfs:comment "The provides property links an Agent to a Public Service for which it is responsible. Whether it provides the service directly or outsources it is not relevant, the Agent that provides the service is the one that is ultimately responsible for its provision."@en .
+
+
+<http://purl.org/vocab/cpsv#uses> rdfs:isDefinedBy <http://purl.org/vocab/cpsv#> ;
+                                  rdfs:label "uses"@en ;
+                                  rdfs:comment "The uses property links an Agent to a Public Service in which it plays the specific role of user, meaning that it provides the input and receives the output but does not play any direct role in providing the service. This will typically be an individual citizen or an outside organisation."@en .
+
+
+<http://schema.org/Organization> rdfs:label "Organization"@en .
+
+
+<http://www.opengis.net/ont/geosparql#hasGeometry> rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql#> ;
+                                                   rdfs:label "hasGeometry"@en ,
+                                                              "has geometry"@en ;
+                                                   rdfs:comment "A spatial representation for a given feature."@en .
+
+
+<http://www.opengis.net/ont/geosparql#sfContains> rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql#> ;
+                                                  rdfs:comment "Exists if the subject SpatialObject spatially contains the object SpatialObject. DE-9IM: T*****FF*"@en ;
+                                                  rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> ;
+                                                  rdfs:label "sfContains"@en ,
+                                                             "contains"@en .
+
+
+<http://www.opengis.net/ont/geosparql#sfWithin> rdfs:label "sfWithin"@en ,
+                                                           "within"@en ;
+                                                rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql#> ;
+                                                rdfs:comment "Exists if the subject SpatialObject is spatially within the object SpatialObject. DE-9IM: T*F**F***"@en ;
+                                                rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#AC> rdfs:label "AsbestosCement" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#ASPH> rdfs:label "Asphalt" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#AnalysisResults> rdfs:label "Analysis Results"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#AnalysisResultsPipe> rdfs:label "Analysis Results Pipe"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#AssociatedPipe> rdfs:comment "Associated Pipe"@en ;
+                                                                       rdfs:label "associated pipe"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#BRS> rdfs:label "Brass" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#CI> rdfs:label "CastIron" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#CL> rdfs:label "Clay" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#CM> rdfs:label "CorrugatedMetal" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#CONC> rdfs:label "Concrete" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#COP> rdfs:label "Copper" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#DI> rdfs:label "DuctileIron" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#ENAM> rdfs:label "Enamel" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#GALV> rdfs:label "Galvanized" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#HDPE> rdfs:label "HighDensityPolyethylene" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#JointType> rdfs:label "Joint Type"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#Lining> rdfs:label "Lining"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#Material> rdfs:label "Material"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#PP> rdfs:label "Polyolefin" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#PVC> rdfs:label "PolyvinylChloride" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#RG> rdfs:label "Rubber_Gasket" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#RiskScenario> rdfs:label "Risk Scenario"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#Rubber_Gasket> rdfs:label "Rubber_Gasket" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#STL> rdfs:label "Steel" .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#code> rdfs:label "code"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expRepairCostDistPipes> rdfs:label "expected repair cost distribution pipes"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expRepairCostTranPipes> rdfs:label "expected repair cost trans pipes"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expRepairCostsNetwork> rdfs:label "expected repair cost network"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expRepairNumDistrPipes> rdfs:label "expected repair num distribution pipes"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expRepairNumNetwork> rdfs:label "expected repair num network"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expRepairNumTransPipes> rdfs:label "expected repair num trans pipes"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expRepairTimeDistrPipes> rdfs:label "expected repair time distribution pipes"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expRepairTimeNetwork> rdfs:label "expected repair time network"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expRepairTimeTransPipes> rdfs:label "expected repair time trans pipes"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsAllEQHazards> rdfs:label "expected repairs all EQ hazards"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsGroundFailure> rdfs:label "expected repairs ground failure"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsGroundShaking> rdfs:label "expected repairs ground shaking"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsLandslide> rdfs:label "expected repairs lands lide"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsLiquefaction> rdfs:label "expected repairs liquefaction"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#expectedRepairsSurfaceDisplacement> rdfs:label "expected repairs surface displacement"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasCathodic> rdfs:label "has cathodic"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasDiameter> rdfs:label "has diameter"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasGeoSpatialComponent> rdfs:label "geo spatial component"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasHazard> rdfs:label "has hazard"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasInstallationDate> rdfs:label "has installation date"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasJointMaterial> rdfs:label "has joint material"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasJointType> rdfs:label "has joint type"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasLength> rdfs:label "has length"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasLining> rdfs:label "has lining"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasMaterial> rdfs:label "has material"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasParameter> rdfs:label "has parameter"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasPhysicalComponenet> rdfs:label "has physical component"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasResults> rdfs:label "has results"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasResultsPipe> rdfs:label "has results pipe"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasValue> rdfs:label "has value"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#hasWaterNetwork> rdfs:label "has water network"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#id> rdfs:label "id"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#servesZone> rdfs:label "serves zone"@en .
+
+
+<http://www.semanticweb.org/malikluti/ontologies/swade#useType> rdfs:label "use type"@en .
+
+
+<http://www.w3.org/2003/01/geo/wgs84_pos#alt> rdfs:label "altitude" ;
+                                              rdfs:comment "The WGS84 altitude of a SpatialThing (decimal meters above the local reference ellipsoid)." .
+
+
+<http://www.w3.org/2003/01/geo/wgs84_pos#lat> rdfs:comment "The WGS84 latitude of a SpatialThing (decimal degrees)." ;
+                                              rdfs:label "latitude" .
+
+
+<http://www.w3.org/2003/01/geo/wgs84_pos#location> rdfs:label "location" ;
+                                                   rdfs:comment "The relation between something and the point, or other geometrical thing in space, where it is.  For example, the realtionship between a radio tower and a Point with a given lat and long. Or a relationship between a park and its outline as a closed arc of points, or a road and its location as a arc (a sequence of points). Clearly in practice there will be limit to the accuracy of any such statement, but one would expect an accuracy appropriate for the size of the object and uses such as mapping ." .
+
+
+<http://www.w3.org/2003/01/geo/wgs84_pos#long> rdfs:label "longitude" ;
+                                               rdfs:comment "The WGS84 longitude of a SpatialThing (decimal degrees)." .
+
+
+<http://www.w3.org/2004/02/skos/core#Concept> rdfs:isDefinedBy <http://www.w3.org/2004/02/skos/core#> .
+
+
+<http://www.w3.org/2006/time#DayOfWeek> rdfs:comment "The day of week."@en ;
+                                        rdfs:label "Day of week"@en ;
+                                        rdfs:isDefinedBy <http://www.w3.org/2006/time#> .
+
+
+<http://www.w3.org/2006/time#TemporalDuration> rdfs:comment "Time extent; duration of a time interval separate from its particular start position"@en ;
+                                               rdfs:isDefinedBy <http://www.w3.org/2006/time#> ;
+                                               rdfs:label "Temporal duration"@en .
+
+
+<https://saref.etsi.org/core/Cleaning> rdfs:label "Cleaning"@en ;
+                                       rdfs:comment "A type of task for which a device is designed"@en .
+
+
+<https://saref.etsi.org/core/Comfort> rdfs:comment "A type of task for which a device is designed"@en ;
+                                      rdfs:label "Comfort"@en .
+
+
+<https://saref.etsi.org/core/Drying> rdfs:comment "A type of task for which a device is designed"@en ;
+                                     rdfs:label "Drying"@en .
+
+
+<https://saref.etsi.org/core/EnergyEfficiency> rdfs:label "EnergyEfficiency"@en ;
+                                               rdfs:comment "A type of task for which a device is designed"@en .
+
+
+<https://saref.etsi.org/core/Entertainment> rdfs:label "Entertainment"@en ;
+                                            rdfs:comment "A type of task for which a device is designed"@en .
+
+
+<https://saref.etsi.org/core/Lighting> rdfs:comment "A type of task for which a device is designed"@en ;
+                                       rdfs:label "Lighting"@en .
+
+
+<https://saref.etsi.org/core/Measurement> rdfs:comment "Represents the measured value made over a property. It is also linked to the unit of measure in which the value is expressed and the timestamp of the measurement."@en ;
+                                          rdfs:label "Measurement"@en ;
+                                          rdfs:isDefinedBy <https://saref.etsi.org/core/> .
+
+
+<https://saref.etsi.org/core/MeterReading> rdfs:label "Meter reading"@en ;
+                                           rdfs:comment "A type of task for which a device is designed"@en .
+
+
+<https://saref.etsi.org/core/Profile> rdfs:comment "A specification associated to a device to collect information about a certain Property (e.g., Energy) for optimizing its usage in the home, office or building in which the device is located. This specification is about a certain Property (saref:isAbout), can be calculated over a time span (saref:hasTime) and can be associated to some costs (saref:hasPrice). An example is the Power Profile defined in the SAREF4ENER extension that can be associated to a device for optimizing the Energy efficiency in the home, office or building in which the device is located."@en ;
+                                      rdfs:label "Profile"@en .
+
+
+<https://saref.etsi.org/core/Safety> rdfs:label "Safety"@en ;
+                                     rdfs:comment "A type of task for which a device is designed"@en .
+
+
+<https://saref.etsi.org/core/Task> rdfs:label "Task"@en ;
+                                   rdfs:comment "The goal for which a device is designed (from a user perspective). For example, a washing machine is designed for the task of washing. We propose here a list of tasks that are relevant for the purpose of SAREF, but this list can be extended. Tasks can be accomplished by devices (saref:isAccomplishedBy)."@en .
+
+
+<https://saref.etsi.org/core/Time> rdfs:label "Time"@en ;
+                                   rdfs:comment "A class that allows to specify the time concept."@en .
+
+
+<https://saref.etsi.org/core/Washing> rdfs:comment "A type of task for which a device is designed"@en ;
+                                      rdfs:label "Washing"@en .
+
+
+<https://saref.etsi.org/core/WellBeing> rdfs:comment "A type of task for which a device is designed"@en ;
+                                        rdfs:label "WellBeing"@en .
+
+
+<https://saref.etsi.org/core/accomplishes> rdfs:label "accomplishes"@en ;
+                                           rdfs:comment "A relationship between a certain entity (e.g., a device) and the task it accomplishes"@en .
+
+
+<https://saref.etsi.org/core/actsUpon> rdfs:comment "A relationship between a command and a state"@en ;
+                                       rdfs:label "acts upon"@en .
+
+
+<https://saref.etsi.org/core/consistsOf> rdfs:label "consists of"@en ;
+                                         rdfs:comment "A relationship indicating a composite entity that consists of other entities (e.g., a temperature/humidity sensor that consists of a temperature sensor and a humidity sensor)"@en .
+
+
+<https://saref.etsi.org/core/controlsProperty> rdfs:comment "controls property"@en ;
+                                               rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                               rdfs:label "controls property"@en ;
+                                               rdfs:comment "A relationship specifying the property that can be controlled by a certain device"@en .
+
+
+<https://saref.etsi.org/core/hasCommand> rdfs:comment "A relationship between a function and a command"@en ;
+                                         rdfs:label "has command"@en .
+
+
+<https://saref.etsi.org/core/hasDescription> rdfs:comment "A relationship providing a description of an entity (e.g., device). The value is expected to be a string or a string with language tag."@en ;
+                                             owl:deprecated "true"^^xsd:boolean ;
+                                             rdfs:comment "DEPRECATED: The use of rdfs:comment is recommended instead."@en ;
+                                             rdfs:label "has description"@en .
+
+
+<https://saref.etsi.org/core/hasFunction> rdfs:label "has function"@en ;
+                                          rdfs:comment "A relationship identifying the function of a device"@en .
+
+
+<https://saref.etsi.org/core/hasManufacturer> rdfs:comment "A relationship identifying the manufacturer of an entity (e.g., device)"@en ;
+                                              rdfs:label "has manufacturer"@en ;
+                                              rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                              rdfs:comment "A relationship identifying the manufacturer of an entity (e.g., device). The value is expected to be a string or a string with language tag."@en .
+
+
+<https://saref.etsi.org/core/hasMeasurement> rdfs:comment "A relationship between a feature of interest and a measurement about it"@en ;
+                                             rdfs:label "has measurement"@en ;
+                                             rdfs:isDefinedBy <https://saref.etsi.org/core/> .
+
+
+<https://saref.etsi.org/core/hasMeterReading> rdfs:comment "A relationship between a metering function and the measurement of the reading"@en ;
+                                              rdfs:label "has meter reading"@en .
+
+
+<https://saref.etsi.org/core/hasMeterReadingType> rdfs:label "has meter reading type"@en ;
+                                                  rdfs:comment "A relationship identifying the reading type of a metering function (e.g., Water, Gas, Pressure , Energy , Power, etc.)"@en .
+
+
+<https://saref.etsi.org/core/hasModel> rdfs:label "has model"@en ;
+                                       rdfs:comment "A relationship identifying the model of an entity (e.g., device). The value is expected to be a string or a string with language tag."@en ,
+                                                    "A relationship identifying the model of an entity (e.g., device)"@en ;
+                                       rdfs:isDefinedBy <https://saref.etsi.org/core/> .
+
+
+<https://saref.etsi.org/core/hasPrice> rdfs:label "has price"@en ;
+                                       rdfs:comment "A relationship indentifying the price associated to an entity"@en .
+
+
+<https://saref.etsi.org/core/hasProfile> rdfs:label "has profile"@en ;
+                                         rdfs:comment "A relationship associating a profile to a certain device"@en .
+
+
+<https://saref.etsi.org/core/hasProperty> rdfs:comment "A relationship between a feature of interest and a property of that feature"@en ;
+                                          rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                          rdfs:label "has property"@en .
+
+
+<https://saref.etsi.org/core/hasSensingRange> rdfs:label "has sensing range"@en ;
+                                              rdfs:comment "A relationship between a sensing function and a measurement identifying the range of a sensor detection"@en .
+
+
+<https://saref.etsi.org/core/hasSensorType> rdfs:label "has sensor type"@en ;
+                                            rdfs:comment "A relationship identifying the sensing type of a sensor detection (i.e., Temperature, Occupancy, Humidity, Motion , Smoke, Pressure, etc.) "@en .
+
+
+<https://saref.etsi.org/core/hasState> rdfs:comment "A relationship identifying the type of state of a device"@en ;
+                                       rdfs:label "has state"@en .
+
+
+<https://saref.etsi.org/core/hasThresholdMeasurement> rdfs:label "has threshold measurement"@en ;
+                                                      rdfs:comment "A relationship associated with an event function to notify that a certain threshold measurement has been exceeded"@en .
+
+
+<https://saref.etsi.org/core/hasTime> rdfs:comment "A relationship to associate time information to an entity"@en ;
+                                      rdfs:label "has time"@en .
+
+
+<https://saref.etsi.org/core/hasTimestamp> rdfs:comment "A relationship stating the timestamp of an entity (e.g. a measurement)."@en ;
+                                           rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                           rdfs:label "has timestamp"@en .
+
+
+<https://saref.etsi.org/core/hasTypicalConsumption> rdfs:comment "A relationship identifying the typical (energy or power) consumption of a device"@en ;
+                                                    rdfs:label "has typical consumption"@en .
+
+
+<https://saref.etsi.org/core/hasValue> rdfs:comment "A relationship defining the value of a certain property, e.g., energy or power. Note that, even if numeric values are expected to enable reasoning, measurement values could use other datatypes."@en ;
+                                       rdfs:label "has value"@en ;
+                                       rdfs:isDefinedBy <https://saref.etsi.org/core/> .
+
+
+<https://saref.etsi.org/core/isAbout> rdfs:comment "A relationship identifying what an entity, such as a profile, is about"@en ;
+                                      rdfs:label "isAbout"@en .
+
+
+<https://saref.etsi.org/core/isAccomplishedBy> rdfs:label "is accomplished by"@en ;
+                                               rdfs:comment "A relationship identifying an entity (e.g., a device) that can accomplish a task."@en .
+
+
+<https://saref.etsi.org/core/isCommandOf> rdfs:label "is command of"@en ;
+                                          rdfs:comment "A relationship between a command and a function."@en .
+
+
+<https://saref.etsi.org/core/isControlledByDevice> rdfs:label "is controlled by device"@en ;
+                                                   rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                                   rdfs:comment "A relationship specifying the devices that can control a certain property"@en .
+
+
+<https://saref.etsi.org/core/isMeasuredByDevice> rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                                 rdfs:comment "A relationship specifying the devices that can measure a certain property"@en ;
+                                                 rdfs:label "is measured by device"@en .
+
+
+<https://saref.etsi.org/core/isMeasuredIn> rdfs:comment "A relationship identifying the unit of measure used for a certain entity."@en ;
+                                           rdfs:label "is measured in"@en ;
+                                           rdfs:isDefinedBy <https://saref.etsi.org/core/> .
+
+
+<https://saref.etsi.org/core/isMeasurementOf> rdfs:label "isMeasurementOf"@en ;
+                                              rdfs:comment "A relationship between a measurement and the feature of interest whose quality was measured"@en ;
+                                              rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                              rdfs:label "is measurement of"@en .
+
+
+<https://saref.etsi.org/core/isOfferedBy> rdfs:comment "A relationship between a service and a device that offers the service"@en ;
+                                          rdfs:label "is offered by"@en .
+
+
+<https://saref.etsi.org/core/isPropertyOf> rdfs:comment "A relationship between a property and the feature of interest it belongs to"@en ;
+                                           rdfs:label "is property of"@en ;
+                                           rdfs:isDefinedBy <https://saref.etsi.org/core/> .
+
+
+<https://saref.etsi.org/core/isUsedFor> rdfs:label "is used for"@en ;
+                                        rdfs:comment "A relationship specifying the commodity for which a device is used for"@en .
+
+
+<https://saref.etsi.org/core/makesMeasurement> rdfs:comment "A relation between a device and the measurements it makes. Such measurement will link together the value of the measurement, its unit of measure and the property to which it relates."@en ;
+                                               rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                               rdfs:label "makes measurement"@en .
+
+
+<https://saref.etsi.org/core/measurementMadeBy> rdfs:label "measurement made by"@en ;
+                                                rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                                rdfs:comment "A relation between a measurement and the device that made it."@en .
+
+
+<https://saref.etsi.org/core/measuresProperty> rdfs:label "measures property"@en ;
+                                               rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                               rdfs:comment "A relationship specifying the property that can be measured by a certain device"@en .
+
+
+<https://saref.etsi.org/core/offers> rdfs:comment "A relationship between a device and a service"@en ;
+                                     rdfs:label "offers"@en .
+
+
+<https://saref.etsi.org/core/relatesToMeasurement> rdfs:label "relates to measurement"@en ;
+                                                   rdfs:isDefinedBy <https://saref.etsi.org/core/> ;
+                                                   rdfs:comment "A relationship between a property and the measurements it relates to"@en .
+
+
+<https://saref.etsi.org/core/relatesToProperty> rdfs:label "relates to property"@en ;
+                                                rdfs:comment "A relationship between a measurement and the property it relates to"@en ;
+                                                rdfs:isDefinedBy <https://saref.etsi.org/core/> .
+
+
+<https://saref.etsi.org/core/represents> rdfs:comment "A relationship between a service and a function."@en ;
+                                         rdfs:label "represents"@en .
+
+
+<https://saref.etsi.org/saref4city/Event> rdfs:seeAlso <https://www.wikidata.org/wiki/Q1656682> ;
+                                          rdfs:comment "Temporary and scheduled event, like a festival or competition. (Definition taken from Wikidata)"@en ;
+                                          rdfs:label "Event"@en .
+
+
+<https://saref.etsi.org/saref4city/KeyPerformanceIndicator> rdfs:comment "A Key Performance Indicator (KPI) is a type of performance measurement. KPIs evaluate the success of an organization or of a particular activity in which it engages. (Definition taken from FIWARE)"@en ;
+                                                            rdfs:label "Key Performance Indicator"@en ;
+                                                            rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                                            rdfs:seeAlso <http://fiware-datamodels.readthedocs.io/en/latest/KeyPerformanceIndicator/doc/spec/index.html> .
+
+
+<https://saref.etsi.org/saref4city/KeyPerformanceIndicatorAssessment> rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                                                      rdfs:comment "A Key Performance Indicator assessment represents the assessment of a KPI calculated by a given agent in a given time."@en ;
+                                                                      rdfs:label "Key performance indicator assessment"@en .
+
+
+<https://saref.etsi.org/saref4city/assesses> rdfs:comment "assesses"@en ;
+                                             rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                             rdfs:label "assesses"@en .
+
+
+<https://saref.etsi.org/saref4city/hasAccesibility> rdfs:label "has accesibility"@en ;
+                                                    rdfs:comment "has accesibility"@en .
+
+
+<https://saref.etsi.org/saref4city/hasCalculationPeriod> rdfs:label "has calculation period"@en ;
+                                                         rdfs:comment "has calculation period"@en ;
+                                                         rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> .
+
+
+<https://saref.etsi.org/saref4city/hasCreationDate> rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                                    rdfs:label "has creation date"@en ;
+                                                    rdfs:comment "has creation date"@en .
+
+
+<https://saref.etsi.org/saref4city/hasExpirationDate> rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                                      rdfs:comment "has expiration date"@en ;
+                                                      rdfs:label "has expiration date"@en .
+
+
+<https://saref.etsi.org/saref4city/hasKPI> rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                           rdfs:label "has key performance indicator"@en ;
+                                           rdfs:comment "has key performance indicator"@en .
+
+
+<https://saref.etsi.org/saref4city/hasLastUpdateDate> rdfs:comment "has last update date"@en ;
+                                                      rdfs:label "has last update date"@en ;
+                                                      rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> .
+
+
+<https://saref.etsi.org/saref4city/involvesFacility> rdfs:comment "involves facility"@en ;
+                                                     rdfs:label "involves facility"@en .
+
+
+<https://saref.etsi.org/saref4city/isAssessedBy> rdfs:comment "is assessed by"@en ;
+                                                 rdfs:label "is assessed by"@en ;
+                                                 rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> .
+
+
+<https://saref.etsi.org/saref4city/isAvailableInLanguage> rdfs:label "is available in language"@en ;
+                                                          rdfs:comment "is available in language"@en .
+
+
+<https://saref.etsi.org/saref4city/isDerivedFrom> rdfs:comment "is derived from"@en ;
+                                                  rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                                  rdfs:label "is derived from"@en .
+
+
+<https://saref.etsi.org/saref4city/isKPIOf> rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                            rdfs:comment "is key performance indicator of"@en ;
+                                            rdfs:label "is key performance indicator of"@en .
+
+
+<https://saref.etsi.org/saref4city/isOrganizedBy> rdfs:comment "is organized by"@en ;
+                                                  rdfs:label "is organized by"@en .
+
+
+<https://saref.etsi.org/saref4city/isSubEventOf> rdfs:comment "is subevent of"@en ;
+                                                 rdfs:label "is subevent of"@en .
+
+
+<https://saref.etsi.org/saref4city/quantifiesKPI> rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                                  rdfs:comment "quantifies KPI"@en ;
+                                                  rdfs:label "quantifies KPI"@en .
+
+
+<https://saref.etsi.org/saref4city/refersToFeature> rdfs:comment "Relation between a KPI assessment and the geographical feature it refers to"@en ;
+                                                    rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                                    rdfs:label "refers to feature"@en .
+
+
+<https://saref.etsi.org/saref4city/refersToTime> rdfs:isDefinedBy <https://saref.etsi.org/saref4city/> ;
+                                                 rdfs:comment "refers to time"@en ;
+                                                 rdfs:label "refers to time"@en .
+
+
+<https://saref.etsi.org/saref4city/takesPlaceAtFacility> rdfs:label "takes place at facility"@en ;
+                                                         rdfs:comment "takes place at facility"@en .
+
+
+<https://saref.etsi.org/saref4city/takesPlaceAtTime> rdfs:comment "takes place at time"@en ;
+                                                     rdfs:label "takes place at time"@en .
+
+
+<https://saref.etsi.org/saref4syst/hasSubSystem> rdfs:label "has sub-system"@en ;
+                                                 rdfs:isDefinedBy <https://saref.etsi.org/saref4syst/> .
+
+
+<https://saref.etsi.org/saref4watr/Acrylamide> rdfs:comment "Property of the water indicating its concentration of acrylamide."@en ;
+                                               rdfs:label "Acrylamide"@en .
+
+
+<https://saref.etsi.org/saref4watr/Agriculture> rdfs:label "Agriculture"@en ;
+                                                rdfs:comment "Use of water for the farming of plants and livestock."@en .
+
+
+<https://saref.etsi.org/saref4watr/Aluminium> rdfs:label "Aluminium"@en ;
+                                              rdfs:comment "Property of the water indicating its concentration of aluminium."@en .
+
+
+<https://saref.etsi.org/saref4watr/Ammonium> rdfs:label "Ammonium"@en ;
+                                             rdfs:comment "Property of the water indicating its concentration of ammonium."@en .
+
+
+<https://saref.etsi.org/saref4watr/Antimony> rdfs:comment "Property of the water indicating its concentration of antimony."@en ;
+                                             rdfs:label "Antimony"@en .
+
+
+<https://saref.etsi.org/saref4watr/Aquaculture> rdfs:label "Aquaculture"@en ;
+                                                rdfs:comment "Use of water for the farming of fish, crustaceans, molluscs, aquatic plants, algae, and other organisms."@en .
+
+
+<https://saref.etsi.org/saref4watr/Arsenic> rdfs:label "Arsenic"@en ;
+                                            rdfs:comment "Property of the water indicating its concentration of arsenic."@en .
+
+
+<https://saref.etsi.org/saref4watr/AtmosphericPressure> rdfs:comment "Property of the environment indicating the atmospheric pressure."@en ;
+                                                        rdfs:label "Atmospheric pressure"@en .
+
+
+<https://saref.etsi.org/saref4watr/BatteryLastChange> rdfs:label "Battery last change"@en ;
+                                                      rdfs:comment "The time in which the battery was last changed."@en .
+
+
+<https://saref.etsi.org/saref4watr/BatteryOperatingTime> rdfs:comment "The time for which the battery has been operating since the last charge."@en ;
+                                                         rdfs:label "Battery operating time"@en .
+
+
+<https://saref.etsi.org/saref4watr/BatteryRemainingTime> rdfs:comment "The time until the battery is discharged."@en ;
+                                                         rdfs:label "Battery remaining time"@en .
+
+
+<https://saref.etsi.org/saref4watr/Benzene> rdfs:comment "Property of the water indicating its concentration of benzene."@en ;
+                                            rdfs:label "Benzene"@en .
+
+
+<https://saref.etsi.org/saref4watr/Benzoapyrene> rdfs:label "Benzo(a)pyrene"@en ;
+                                                 rdfs:comment "Property of the water indicating its concentration of benzo(a)pyrene."@en .
+
+
+<https://saref.etsi.org/saref4watr/Boron> rdfs:comment "Property of the water indicating its concentration of boron."@en ;
+                                          rdfs:label "Boron"@en .
+
+
+<https://saref.etsi.org/saref4watr/Bromate> rdfs:label "Bromate"@en ;
+                                            rdfs:comment "Property of the water indicating its concentration of bromate."@en .
+
+
+<https://saref.etsi.org/saref4watr/COP> rdfs:label "Copper" .
+
+
+<https://saref.etsi.org/saref4watr/Cadmium> rdfs:comment "Property of the water indicating its concentration of cadmium."@en ;
+                                            rdfs:label "Cadmium"@en .
+
+
+<https://saref.etsi.org/saref4watr/Chloride> rdfs:comment "Property of the water indicating its concentration of chloride."@en ;
+                                             rdfs:label "Chloride"@en .
+
+
+<https://saref.etsi.org/saref4watr/Chromium> rdfs:comment "Property of the water indicating its concentration of chromium."@en ;
+                                             rdfs:label "Chromium"@en .
+
+
+<https://saref.etsi.org/saref4watr/ClostridiumPerfringens> rdfs:label "Clostridium perfringens"@en ;
+                                                           rdfs:comment "Property of the water indicating its concentration of clostridium perfringens."@en .
+
+
+<https://saref.etsi.org/saref4watr/ColiformBacteria> rdfs:label "Coliform bacteria"@en ;
+                                                     rdfs:comment "Property of the water indicating its concentration of coliform bacteria."@en .
+
+
+<https://saref.etsi.org/saref4watr/ColonyCount22C> rdfs:comment "Property of the water indicating its colony count at 22 ºC."@en ;
+                                                   rdfs:label "Colony count at 22 °C"@en .
+
+
+<https://saref.etsi.org/saref4watr/ColonyCount37C> rdfs:label "Colony count at 37 °C"@en ;
+                                                   rdfs:comment "Property of the water indicating its colony count at 37 ºC."@en .
+
+
+<https://saref.etsi.org/saref4watr/Colour> rdfs:label "Colour"@en ;
+                                           rdfs:comment "Property of the water indicating its colour."@en .
+
+
+<https://saref.etsi.org/saref4watr/Conductivity> rdfs:label "Conductivity"@en ;
+                                                 rdfs:comment "Property of the water indicating its conductivity."@en .
+
+
+<https://saref.etsi.org/saref4watr/Copper> rdfs:label "Copper"@en ;
+                                           rdfs:comment "Property of the water indicating its concentration of copper."@en .
+
+
+<https://saref.etsi.org/saref4watr/Cyanide> rdfs:label "Cyanide"@en ;
+                                            rdfs:comment "Property of the water indicating its concentration of cyanide."@en .
+
+
+<https://saref.etsi.org/saref4watr/Domestic> rdfs:label "Domestic"@en ;
+                                             rdfs:comment "Use of water for domestic purposes."@en .
+
+
+<https://saref.etsi.org/saref4watr/DrinkingWater> rdfs:label "Potable water"@en ;
+                                                  rdfs:comment "Drinking water is water that is treated to comply with drinking water standards."@en ;
+                                                  rdfs:label "Drinking water"@en .
+
+
+<https://saref.etsi.org/saref4watr/Enterococci> rdfs:comment "Property of the water indicating its concentration of enterococci."@en ;
+                                                rdfs:label "Enterococci"@en .
+
+
+<https://saref.etsi.org/saref4watr/Epichlorohydrin> rdfs:label "Epichlorohydrin"@en ;
+                                                    rdfs:comment "Property of the water indicating its concentration of epichlorohydrin."@en .
+
+
+<https://saref.etsi.org/saref4watr/EscherichiaColi> rdfs:comment "Property of the water indicating its concentration of escherichia coli."@en ;
+                                                    rdfs:label "Escherichia coli"@en ,
+                                                               "E. coli"@en .
+
+
+<https://saref.etsi.org/saref4watr/ExternalTemperature> rdfs:label "External temperature"@en ;
+                                                        rdfs:comment "Property of the environment indicating the temperature."@en .
+
+
+<https://saref.etsi.org/saref4watr/FlowPressure> rdfs:label "Flow pressure"@en ;
+                                                 rdfs:comment "Property indicating the pressure of a water flow."@en .
+
+
+<https://saref.etsi.org/saref4watr/FlowRate> rdfs:label "Flow rate"@en ;
+                                             rdfs:comment "Property indicating the rate of a water flow."@en .
+
+
+<https://saref.etsi.org/saref4watr/FlowTemperature> rdfs:label "Flow temperature"@en ;
+                                                    rdfs:comment "Property indicating the temperature of a water flow."@en .
+
+
+<https://saref.etsi.org/saref4watr/FlowVolume> rdfs:comment "Property indicating the volume of a water flow."@en ;
+                                               rdfs:label "Flow volume"@en .
+
+
+<https://saref.etsi.org/saref4watr/Fluoride> rdfs:comment "Property of the water indicating its concentration of fluoride."@en ;
+                                             rdfs:label "Fluoride"@en .
+
+
+<https://saref.etsi.org/saref4watr/Hardness> rdfs:comment "Property of the water indicating its hardness."@en ;
+                                             rdfs:label "Hardness"@en .
+
+
+<https://saref.etsi.org/saref4watr/Humidity> rdfs:comment "Property of the environment indicating the humidity."@en ;
+                                             rdfs:label "Humidity"@en .
+
+
+<https://saref.etsi.org/saref4watr/HydrogenIonConcentration> rdfs:comment "Property of the water indicating its hydrogen ion concentration."@en ;
+                                                             rdfs:label "pH"@en ,
+                                                                        "Hydrogen ion concentration"@en .
+
+
+<https://saref.etsi.org/saref4watr/Industry> rdfs:comment "Use of water for industrial purposes."@en ;
+                                             rdfs:label "Industry"@en .
+
+
+<https://saref.etsi.org/saref4watr/Iron> rdfs:comment "Property of the water indicating its concentration of iron."@en ;
+                                         rdfs:label "Iron"@en .
+
+
+<https://saref.etsi.org/saref4watr/Lead> rdfs:label "Lead"@en ;
+                                         rdfs:comment "Property of the water indicating its concentration of lead."@en .
+
+
+<https://saref.etsi.org/saref4watr/Manganese> rdfs:label "Manganese"@en ;
+                                              rdfs:comment "Property of the water indicating its concentration of manganese."@en .
+
+
+<https://saref.etsi.org/saref4watr/Mercury> rdfs:label "Mercury"@en ;
+                                            rdfs:comment "Property of the water indicating its concentration of mercury."@en .
+
+
+<https://saref.etsi.org/saref4watr/MeterOnTime> rdfs:comment "The duration of the meter power up."@en ;
+                                                rdfs:label "Meter on time"@en .
+
+
+<https://saref.etsi.org/saref4watr/MeterOperatingTime> rdfs:comment "The time for which the meter has been operating."@en ;
+                                                       rdfs:label "Meter operating time"@en .
+
+
+<https://saref.etsi.org/saref4watr/Nickel> rdfs:comment "Property of the water indicating its concentration of nickel."@en ;
+                                           rdfs:label "Nickel"@en .
+
+
+<https://saref.etsi.org/saref4watr/Nitrate> rdfs:label "Nitrate"@en ;
+                                            rdfs:comment "Property of the water indicating its concentration of nitrate."@en .
+
+
+<https://saref.etsi.org/saref4watr/Nitrite> rdfs:comment "Property of the water indicating its concentration of nitrite."@en ;
+                                            rdfs:label "Nitrite"@en .
+
+
+<https://saref.etsi.org/saref4watr/Odour> rdfs:label "Odour"@en ;
+                                          rdfs:comment "Property of the water indicating its odour."@en .
+
+
+<https://saref.etsi.org/saref4watr/Oxidisability> rdfs:label "Oxidisability"@en ;
+                                                  rdfs:comment "Property of the water indicating its oxidisability."@en .
+
+
+<https://saref.etsi.org/saref4watr/Oxygen> rdfs:label "Oxygen saturation"@en ;
+                                           rdfs:comment "Property of the water indicating its oxygen saturation."@en ;
+                                           rdfs:label "Dissolved oxygen"@en ,
+                                                      "Oxygen"@en .
+
+
+<https://saref.etsi.org/saref4watr/PolycyclicAromaticHydrocarbons> rdfs:comment "Property of the water indicating its concentration of polycyclic aromatic hydrocarbons."@en ;
+                                                                   rdfs:label "Polycyclic aromatic hydrocarbons"@en .
+
+
+<https://saref.etsi.org/saref4watr/Precipitation> rdfs:label "Precipitation"@en ;
+                                                  rdfs:comment "Property of the environment indicating the precipitation."@en .
+
+
+<https://saref.etsi.org/saref4watr/PseudomonasAeruginosa> rdfs:comment "Property of the water indicating its concentration of pseudomonas aeruginosa."@en ;
+                                                          rdfs:label "Pseudomonas aeruginosa"@en .
+
+
+<https://saref.etsi.org/saref4watr/RawWater> rdfs:comment "Raw water is water found in the environment that has not been treated and does not have any of its minerals, ions, particles, bacteria, or parasites removed."@en ;
+                                             rdfs:label "Raw water"@en .
+
+
+<https://saref.etsi.org/saref4watr/Recreation> rdfs:comment "Use of water for recreational purposes."@en ;
+                                               rdfs:label "Recreation"@en .
+
+
+<https://saref.etsi.org/saref4watr/Selenium> rdfs:label "Selenium"@en ;
+                                             rdfs:comment "Property of the water indicating its concentration of selenium."@en .
+
+
+<https://saref.etsi.org/saref4watr/Sodium> rdfs:label "Sodium"@en ;
+                                           rdfs:comment "Property of the water indicating its concentration of sodium."@en .
+
+
+<https://saref.etsi.org/saref4watr/Stormwater> rdfs:label "Storm water"@en ;
+                                               rdfs:comment "Stormwater is water that originates during precipitation events and snow/ice melt."@en .
+
+
+<https://saref.etsi.org/saref4watr/Sulphate> rdfs:label "Sulphate"@en ;
+                                             rdfs:comment "Property of the water indicating its concentration of sulphate."@en .
+
+
+<https://saref.etsi.org/saref4watr/Taste> rdfs:comment "Property of the water indicating its taste."@en ;
+                                          rdfs:label "Taste"@en .
+
+
+<https://saref.etsi.org/saref4watr/Temperature> rdfs:comment "Property of the water indicating its temperature."@en ;
+                                                rdfs:label "Temperature"@en .
+
+
+<https://saref.etsi.org/saref4watr/Tetrachloroethene> rdfs:label "Tetrachloroethene"@en ;
+                                                      rdfs:comment "Property of the water indicating its concentration of tetrachloroethene."@en .
+
+
+<https://saref.etsi.org/saref4watr/TotalDissolvedSolids> rdfs:comment "Property of the water indicating the dissolved combined content of all inorganic and organic substances present in a sample of water."@en ;
+                                                         rdfs:label "Total dissolved solids"@en .
+
+
+<https://saref.etsi.org/saref4watr/TotalIndicativeDose> rdfs:label "Total indicative dose"@en ;
+                                                        rdfs:comment "Property of the water indicating its total indicative dose."@en .
+
+
+<https://saref.etsi.org/saref4watr/TotalOrganicCarbon> rdfs:comment "Property of the water indicating its concentration of total organic carbon."@en ;
+                                                       rdfs:label "Total organic carbon"@en ,
+                                                                  "TOC"@en .
+
+
+<https://saref.etsi.org/saref4watr/TotalSuspendedSolids> rdfs:label "Total suspended solids"@en ;
+                                                         rdfs:comment "Property of the water indicating the dry-weight of suspended particles, that are not dissolved, in a sample of water."@en .
+
+
+<https://saref.etsi.org/saref4watr/Trichloroethene> rdfs:comment "Property of the water indicating its concentration of trichloroethene."@en ;
+                                                    rdfs:label "Trichloroethene"@en .
+
+
+<https://saref.etsi.org/saref4watr/Trihalomethanes> rdfs:label "Trihalomethanes"@en ;
+                                                    rdfs:comment "Property of the water indicating its concentration of trihalomethanes."@en .
+
+
+<https://saref.etsi.org/saref4watr/Tritium> rdfs:comment "Property of the water indicating its concentration of tritium."@en ;
+                                            rdfs:label "Tritium"@en .
+
+
+<https://saref.etsi.org/saref4watr/Turbidity> rdfs:label "Turbidity"@en ;
+                                              rdfs:comment "Property of the water indicating its turbidity."@en .
+
+
+<https://saref.etsi.org/saref4watr/VinylChloride> rdfs:label "Vinyl chloride"@en ;
+                                                  rdfs:comment "Property of the water indicating its concentration of vinyl chloride."@en .
+
+
+<https://saref.etsi.org/saref4watr/Wastewater> rdfs:comment "Wastewater is water that has been used in the home, in a business, or as part of an industrial process."@en ;
+                                               rdfs:label "Waste water"@en .
+
+
+<https://saref.etsi.org/saref4watr/WaterUse> rdfs:comment "This class is used to define the different uses of water."@en ;
+                                             rdfs:label "Water use"@en .
+
+
+<https://saref.etsi.org/saref4watr/appliesTo> rdfs:label "applies to"@en ;
+                                              rdfs:comment "The water meter to which a tariff applies to."@en .
+
+
+<https://saref.etsi.org/saref4watr/controlsFeature> rdfs:label "controls feature"@en ;
+                                                    rdfs:comment "A relationship specifying the features of interest that are controlled by a device."@en .
+
+
+<https://saref.etsi.org/saref4watr/featureIsControlledByDevice> rdfs:comment "A relationship specifying the devices that control a feature of interest."@en ;
+                                                                rdfs:label "feature is controlled by device"@en .
+
+
+<https://saref.etsi.org/saref4watr/featureIsMeasuredByDevice> rdfs:comment "A relationship specifying the devices that measure a feature of interest."@en ;
+                                                              rdfs:label "feature is measured by device"@en .
+
+
+<https://saref.etsi.org/saref4watr/forAbsoluteTimeAtDay> rdfs:comment "The time interval in each day for which a tariff is applied (e.g., 8:00 to 10:00)."@en ;
+                                                         rdfs:label "for absolute time at day"@en .
+
+
+<https://saref.etsi.org/saref4watr/forDayInMonth> rdfs:comment "The day of the month for which a tariff is applied (e.g., each 15)."@en ;
+                                                  rdfs:label "for day in month"@en .
+
+
+<https://saref.etsi.org/saref4watr/forFinancialConsumption> rdfs:label "for financial consumption"@en ;
+                                                            rdfs:comment "The financial consumption related to a tariff (e.g., prepaid tariffs)."@en .
+
+
+<https://saref.etsi.org/saref4watr/forVolumeConsumption> rdfs:comment "The volume consumption related to a tariff (e.g., after consumption of 900 litres)."@en ;
+                                                         rdfs:label "for volume consumption"@en .
+
+
+<https://saref.etsi.org/saref4watr/forVolumeFlow> rdfs:comment "The volume flow related to a tariff."@en ;
+                                                  rdfs:label "for volume flow"@en .
+
+
+<https://saref.etsi.org/saref4watr/forWeekDay> rdfs:comment "The day of the week for which a tariff is applied (e.g., each Saturday and Sunday)."@en ;
+                                               rdfs:label "for week day"@en .
+
+
+<https://saref.etsi.org/saref4watr/hasBillingDate> rdfs:label "has billing date"@en ;
+                                                   rdfs:comment "The billing date of a tariff."@en .
+
+
+<https://saref.etsi.org/saref4watr/hasBillingPeriod> rdfs:comment "The billing period of a tariff."@en ;
+                                                     rdfs:label "has billing period"@en .
+
+
+<https://saref.etsi.org/saref4watr/hasDuration> rdfs:comment "The duration of a tariff."@en ;
+                                                rdfs:label "has duration"@en .
+
+
+<https://saref.etsi.org/saref4watr/hasFabricationNumber> rdfs:label "has fabrication number"@en ;
+                                                         rdfs:comment "The fabrication number of a device."@en .
+
+
+<https://saref.etsi.org/saref4watr/hasFirmwareVersion> rdfs:label "has firmware version"@en ;
+                                                       rdfs:comment "The firmware version of a device."@en .
+
+
+<https://saref.etsi.org/saref4watr/hasHardwareVersion> rdfs:label "has hardware version"@en ;
+                                                       rdfs:comment "The hardware version of a device."@en .
+
+
+<https://saref.etsi.org/saref4watr/hasPeriod> rdfs:comment "The period of a tariff."@en ;
+                                              rdfs:label "has period"@en .
+
+
+<https://saref.etsi.org/saref4watr/hasPhenomenonTime> rdfs:label "has phenomenon time"@en ;
+                                                      rdfs:comment "The time for which the value of a measurement applies to the feature of interest."@en .
+
+
+<https://saref.etsi.org/saref4watr/hasStartTimestamp> rdfs:comment "The start date and time of a tariff."@en ;
+                                                      rdfs:label "has start timestamp"@en .
+
+
+<https://saref.etsi.org/saref4watr/hasVersion> rdfs:label "has version"@en ;
+                                               rdfs:comment "The version of a device."@en .
+
+
+<https://saref.etsi.org/saref4watr/isDesignedFor> rdfs:label "is designed for"@en ;
+                                                  rdfs:comment "The type of water for which an infrastructure is designed for."@en .
+
+
+<https://saref.etsi.org/saref4watr/isIntendedFor> rdfs:comment "The intended use of the infrastructure."@en ;
+                                                  rdfs:label "is intended for"@en .
+
+
+<https://saref.etsi.org/saref4watr/measuresFeature> rdfs:comment "A relationship specifying the features of interest that are measured by a device."@en ;
+                                                    rdfs:label "measures feature"@en .
+
+
+<https://saref.etsi.org/saref4watr/operatesAtRadioFrequency> rdfs:label "operates at radio frequency"@en ;
+                                                             rdfs:comment "The radio frequency at which a device operates."@en .
+
+
+<https://saref.etsi.org/saref4watr/requiresPower> rdfs:label "requires power"@en ;
+                                                  rdfs:comment "The power required by a device."@en .
+
+
+<https://saref.etsi.org/saref4watr/12Dichloroethane> rdfs:comment "Property of the water indicating its concentration of 1,2-dichloroethane."@en ;
+                                                     rdfs:label "1,2-dichloroethane"@en .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

@@ -117,8 +117,6 @@ def get_names_of_properties():
     for cn, cp in properties.items():
         if not cp:
             print(cn)
-    test.truth(False)
-
 
 
 class Table:
